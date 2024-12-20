@@ -12,6 +12,7 @@
     "next": "15.1.0",
     "next-i18next": "^15.4.0",
     "next-intl": "^3.26.1",
+    "primeicons": "^7.0.0",
     "primereact": "^10.8.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -3,16 +3,18 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { PrimeReactProvider } from 'primereact/api';
 
 export default async function LocaleLayout({
   children,
   params
 }: Readonly<{
   children: React.ReactNode;
-  params: {locale: string}
+  params: { locale: string }
 }>) {
 
   const { locale } = await params;
+  
 
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as any)) {
@@ -20,13 +22,17 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  
+
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <div className="w-full max-w-7xl h-screen">
+          <NextIntlClientProvider messages={messages}>
+            <PrimeReactProvider>
+              {children}
+            </PrimeReactProvider>
+          </NextIntlClientProvider>
+        </div>
       </body>
     </html>
   );

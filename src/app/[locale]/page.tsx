@@ -1,13 +1,13 @@
 
-import { useTranslations } from "next-intl";
+import 'primeicons/primeicons.css';
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
 
-  const t = useTranslations("NavbarLinks")
 
   return (
     <div>
-      <h1>{t("home")}</h1>
+      <Navbar />
     </div>
   );
 }
