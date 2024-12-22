@@ -26,13 +26,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <div className="w-full max-w-7xl h-screen">
           <NextIntlClientProvider messages={messages}>
             <PrimeReactProvider>
               {children}
             </PrimeReactProvider>
           </NextIntlClientProvider>
-        </div>
       </body>
     </html>
   );

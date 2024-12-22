@@ -6,8 +6,12 @@ export default function Home() {
 
 
   return (
-    <div>
+    <section 
+    className='w-full h-screen items-center flex flex-col'
+    id='home'
+    > 
       <Navbar />
-    </div>
+      
+    </section>
   );
 }
