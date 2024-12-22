@@ -9,7 +9,7 @@ export default function Button({ children }: ButtonProps) {
   return(
     <button
     type="button"
-    className="bg-slate-300 hover:bg-slate-100 text-black py-2 px-4 rounded-full"
+    className="bg-slate-300 hover:bg-slate-100 text-black py-2 px-4 rounded-full h-10 w-36"
     >
       {children}
     </button>
