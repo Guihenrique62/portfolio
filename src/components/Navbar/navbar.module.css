@@ -1,0 +1,8 @@
+.navbar {
+  transition: background-color 0.5s ease;
+}
+
+.navbar.scrolled {
+  background-color: #022c51; /* Ajuste a opacidade conforme necessário */
+  
+}

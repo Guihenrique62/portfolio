@@ -4,7 +4,8 @@
         "home": "Home",
         "cases": "Cases",
         "solutions": "Solutions",
-        "contact": "Contact"
+        "contact": "Contact",
+        "button": "Start project"
     },
     "HomeText": {
         "title": "Digital experience that transforms your company.",
