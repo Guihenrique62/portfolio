@@ -5,5 +5,11 @@
         "cases": "Casos",
         "solutions": "Soluções",
         "contact": "Contato"
+    },
+
+    "HomeText": {
+        "title": "Experiência digital que transforma a sua Empresa.",
+        "subtitle": "Seu sucesso digital começa com uma interface bem desenvolvida. Vamos criar algo incrível juntos!",
+        "button": "Ver projetos"
     }
 }
