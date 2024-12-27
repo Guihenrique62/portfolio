@@ -39,17 +39,21 @@ export default function Navbar() {
             />
           </Link>
           
-        <ul className="flex space-x-8 items-center">
-          <li className="hover:text-gray-100">
+        <ul className="flex space-x-2 items-center
+          lg:space-x-8 
+          md:space-x-8 
+          sm:space-x-8 
+          ">
+          <li className="hover:text-gray-100 hidden min-[860px]:block">
             <a href="/">{t("home")}</a>
           </li>
-          <li className="hover:text-gray-100">
+          <li className="hover:text-gray-100 hidden min-[860px]:block">
             <a href="#cases">{t("cases")}</a>
           </li>
-          <li className="hover:text-gray-100">
+          <li className="hover:text-gray-100 hidden min-[860px]:block">
             <a href="#solution">{t("solutions")}</a>
           </li>
-          <li className="hover:text-gray-100">
+          <li className="hover:text-gray-100 hidden min-[860px]:block">
             <a href="#contact">{t("contact")}</a>
           </li>
           <li>
@@ -64,7 +68,7 @@ export default function Navbar() {
             />
           </li>
           <li>
-            <Button children={t('button')}></Button>
+            <Button >{t('button')}</Button>
           </li>
         </ul>
       </nav>
