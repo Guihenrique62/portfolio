@@ -14,7 +14,6 @@ export default function Home() {
   // Efeito ao scrollar a pagina
   useEffect(() => {
     const handleScroll = () => {
-      const section = document.getElementById('home');
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
@@ -36,7 +35,7 @@ export default function Home() {
         
         <HomeSection homeText={homeText} />
 
-        
+
         <section
           className='w-full h-screen items-center flex flex-col'
         >

@@ -45,16 +45,16 @@ export default function Navbar() {
           sm:space-x-8 
           ">
           <li className="hover:text-gray-100 hidden min-[860px]:block">
-            <a href="/">{t("home")}</a>
+            <Link href="/">{t("home")}</Link>
           </li>
           <li className="hover:text-gray-100 hidden min-[860px]:block">
-            <a href="#cases">{t("cases")}</a>
+            <Link href="#cases">{t("cases")}</Link>
           </li>
           <li className="hover:text-gray-100 hidden min-[860px]:block">
-            <a href="#solution">{t("solutions")}</a>
+            <Link href="#solution">{t("solutions")}</Link>
           </li>
           <li className="hover:text-gray-100 hidden min-[860px]:block">
-            <a href="#contact">{t("contact")}</a>
+            <Link href="#contact">{t("contact")}</Link>
           </li>
           <li>
             <SplitButton

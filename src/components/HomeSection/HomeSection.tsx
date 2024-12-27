@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Button from '../Button';
 import styles from './HomeSection.module.css';
+import Link from 'next/link';
 
 interface HomeSectionProps {
   homeText: (key: string) => string;
@@ -69,13 +70,13 @@ useEffect(() => {
         md:w-1/3
         '>
 
-          <a href="/" className='hover:text-slate-500'>
+          <Link href="/" className='hover:text-slate-500'>
             <i className="pi pi-instagram" style={{ fontSize: '2rem' }}></i>
-          </a>
+          </Link>
 
-          <a href="/" className='hover:text-slate-500'>
+          <Link href="/" className='hover:text-slate-500'>
             <i className="pi pi-whatsapp" style={{ fontSize: '2rem' }}></i>
-          </a>
+          </Link>
 
           <hr className='my-5 border-slate-300 w-1/3' />
           
