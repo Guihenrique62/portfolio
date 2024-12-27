@@ -7,26 +7,9 @@ import { SplitButton } from "primereact/splitbutton";
 import { usePathname, useRouter } from 'next/navigation';
 import Button from "../Button";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import styles from './navbar.module.css';
 
 
 export default function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
-
-    useEffect(() => {
-      const handleScroll = () => {
-        if (window.scrollY > 100) {
-          setScrolled(true);
-        } else {
-          setScrolled(false);
-        }
-      };
-
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
 
     const t = useTranslations("NavbarLinks");
     const pathname = usePathname();
@@ -44,11 +27,9 @@ export default function Navbar() {
     }));
 
   return (
-    <div className={`w-full flex items-center justify-center h-auto fixed z-50 ${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <nav
       className={"w-full max-w-7xl flex py-4 px-4 text-gray-300 justify-between items-center"}
       >
-        <div>
           <Link href={'/'}>
             <Image
               alt={t("altLogo")}
@@ -57,7 +38,7 @@ export default function Navbar() {
               height={140}
             />
           </Link>
-        </div>
+          
         <ul className="flex space-x-8 items-center">
           <li className="hover:text-gray-100">
             <a href="/">{t("home")}</a>
@@ -87,6 +68,5 @@ export default function Navbar() {
           </li>
         </ul>
       </nav>
-    </div>
   );
 }
