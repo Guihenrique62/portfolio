@@ -35,10 +35,11 @@ export default function Home() {
       <main className='w-full h-auto flex flex-col items-center justify-center'>
         
         <HomeSection homeText={homeText} />
+
+        
         <section
           className='w-full h-screen items-center flex flex-col'
         >
-
         </section>
 
       </main>
