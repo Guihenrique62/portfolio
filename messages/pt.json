@@ -12,5 +12,10 @@
         "title": "Experiência digital que transforma a sua Empresa.",
         "subtitle": "Seu sucesso digital começa com uma interface bem desenvolvida. Vamos criar algo incrível juntos!",
         "button": "Ver projetos"
+    },
+    "CasesText": {
+        "title": "Transformando ideias em Realidade",
+        "subtitle": "Somos uma empresa especializada em criar experiências web únicas que elevam marcas a novos patamares. Com foco em inovação e design, transformamos a presença online em uma poderosa ferramenta de crescimento",
+        "button": "Ver projeto"
     }
 }

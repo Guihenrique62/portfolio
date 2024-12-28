@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import Button from '../Button';
 import styles from './HomeSection.module.css';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
-interface HomeSectionProps {
-  homeText: (key: string) => string;
-}
 
-const HomeSection: React.FC<HomeSectionProps> = ({ homeText }) => {
+const HomeSection = () => {
+
+  const homeText = useTranslations("HomeText");
 
 useEffect(() => {
     const handleScroll = () => {

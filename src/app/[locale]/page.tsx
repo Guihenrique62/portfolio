@@ -4,12 +4,11 @@ import 'primeicons/primeicons.css';
 import Navbar from "@/components/Navbar/Navbar";
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import { useTranslations } from 'next-intl';
 import HomeSection from '@/components/HomeSection/HomeSection';
+import CaseSection from '@/components/CasesSection/CaseSection';
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
-  const homeText = useTranslations("HomeText");
 
   // Efeito ao scrollar a pagina
   useEffect(() => {
@@ -33,13 +32,9 @@ export default function Home() {
 
       <main className='w-full h-auto flex flex-col items-center justify-center'>
         
-        <HomeSection homeText={homeText} />
+        <HomeSection />
 
-
-        <section
-          className='w-full h-screen items-center flex flex-col'
-        >
-        </section>
+        <CaseSection />
 
       </main>
       

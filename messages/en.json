@@ -11,5 +11,10 @@
         "title": "Digital experience that transforms your company.",
         "subtitle": "Your digital success starts with a well-developed interface. Let's create something amazing together!",
         "button": "See projects"
-    }
+    },
+    "CasesText": {
+    "title": "Transforming Ideas into Reality",
+    "subtitle": "We are a company specialized in creating unique web experiences that elevate brands to new heights. With a focus on innovation and design, we transform online presence into a powerful growth tool.",
+    "button": "See project"
+}
 }
