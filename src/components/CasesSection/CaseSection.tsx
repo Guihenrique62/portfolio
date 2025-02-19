@@ -10,9 +10,9 @@ export default function CaseSection () {
         <section
           className='
             w-full h-screen flex flex-col justify-start
-            lg:h-screen lg:items-center lg:rounded-b-3xl lg:justify-between 
-            md:h-screen md:items-center md:rounded-b-2xl md:justify-between
-            sm:h-screen sm:items-center sm:rounded-b-xl sm:justify-between  
+            lg:h-screen lg:items-center lg:rounded-b-3xl lg:justify-around 
+            md:h-screen md:items-center md:rounded-b-2xl md:justify-around
+            sm:h-screen sm:items-center sm:rounded-b-xl sm:justify-around  
             
           '
         >   
@@ -25,9 +25,15 @@ export default function CaseSection () {
             <h2 className="w-1/2 font-medium text-4xl">{t('title')}</h2>
             <p className="w-1/2">{t('subtitle')}</p>
           </div>
+
+          <div
+          className="w-3/4 h-auto"
+          >
+            <CasesCarousel />
+          </div>
           
-          <CasesCarousel />
-        
+          
+
         </section>
     )
 }

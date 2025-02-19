@@ -41,3 +41,30 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+.project-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.project-info {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  color: white;
+  text-align: left;
+  
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+}
+.project-link {
+  color: #00aaff;
+  text-decoration: underline;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+}

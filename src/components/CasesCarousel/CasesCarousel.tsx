@@ -30,11 +30,27 @@ const ProjectCarousel = () => {
   return (
     <Swiper
       className="cases-carousel"
+      spaceBetween={50}
+      slidesPerView={2}
+      navigation
+      
     >
       {projects.map((project, index) => (
         <SwiperSlide key={index}>
-          {project.title}
-        </SwiperSlide>
+        <div className="project-card">
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className="project-image"
+          />
+          <div className="project-info">
+            <h3>{project.title}</h3>
+            <a href={project.link} className="project-link">
+              Ver projeto
+            </a>
+          </div>
+        </div>
+      </SwiperSlide>
       ))}
     </Swiper>
   );
