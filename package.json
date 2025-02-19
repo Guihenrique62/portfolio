@@ -15,7 +15,8 @@
     "primeicons": "^7.0.0",
     "primereact": "^10.8.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "swiper": "^11.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
