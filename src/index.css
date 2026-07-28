@@ -1,0 +1,96 @@
+@import "@fontsource/anton";
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050506;
+  --color-surface: #0b0b0e;
+  --color-card: #101014;
+  --color-line: #1e1e24;
+  --color-primary: #2f6bff;
+  --color-primary-bright: #3d7bff;
+  --color-primary-deep: #0b2a7a;
+  --color-whatsapp: #23c15f;
+  --color-muted: #a1a1aa;
+
+  --font-display: "Anton", sans-serif;
+  --font-sans: "Inter Variable", "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Reveal on scroll — apenas opacity/transform (compositor, sem reflow) */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out,
+    border-color 0.2s,
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Entrada do hero (on load) */
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-down {
+  animation: fade-down 0.7s ease-out both;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .animate-fade-down,
+  .animate-fade-up {
+    animation: none;
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
