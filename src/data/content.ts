@@ -37,7 +37,9 @@ export interface Project {
   number: string
   name: string
   description: string
+  modalDescription?: string
   image?: string
+  imageAlt?: string
   url?: string
 }
 
@@ -104,6 +106,8 @@ export interface SiteContent {
     title: string
     viewAll: string
     quote: string
+    visitSite: string
+    close: string
     items: Project[]
   }
   services: {
@@ -160,8 +164,19 @@ export const content: Record<Lang, SiteContent> = {
       title: 'PROJETOS SELECIONADOS',
       viewAll: 'VER TODOS',
       quote: 'FAÇA UM ORÇAMENTO',
+      visitSite: 'VISITAR SITE',
+      close: 'Fechar',
       items: [
-        { number: '01', name: 'Nome Projeto', description: 'Descrição breve' },
+        {
+          number: '01',
+          name: 'Cozinha Bussmeyer',
+          description: 'Site institucional · Buffet de eventos',
+          modalDescription:
+            'Site institucional desenvolvido para a Cozinha Bussmeyer, buffet de eventos em Goiânia especializado em casamentos, aniversários, formaturas e eventos corporativos. O projeto apresenta os serviços, cardápios, galeria de eventos e depoimentos de clientes, com foco em conversão: orçamento direto via WhatsApp, SEO local e carregamento rápido.',
+          image: '/projects/cozinha-bussmeyer',
+          imageAlt: 'Página inicial do site Cozinha Bussmeyer — buffet de eventos',
+          url: 'https://cozinha-bussmeyer.vercel.app/',
+        },
         { number: '02', name: 'Nome Projeto', description: 'Descrição breve' },
         { number: '03', name: 'Nome Projeto', description: 'Descrição breve' },
       ],
@@ -339,8 +354,19 @@ export const content: Record<Lang, SiteContent> = {
       title: 'SELECTED PROJECTS',
       viewAll: 'VIEW ALL',
       quote: 'GET A QUOTE',
+      visitSite: 'VISIT WEBSITE',
+      close: 'Close',
       items: [
-        { number: '01', name: 'Project Name', description: 'Brief description' },
+        {
+          number: '01',
+          name: 'Cozinha Bussmeyer',
+          description: 'Institutional website · Event catering',
+          modalDescription:
+            'Institutional website built for Cozinha Bussmeyer, an event catering company in Goiânia, Brazil, specialized in weddings, birthdays, graduations and corporate events. The project showcases services, menus, an event gallery and client testimonials, with a focus on conversion: direct quotes via WhatsApp, local SEO and fast loading.',
+          image: '/projects/cozinha-bussmeyer',
+          imageAlt: 'Cozinha Bussmeyer website homepage — event catering',
+          url: 'https://cozinha-bussmeyer.vercel.app/',
+        },
         { number: '02', name: 'Project Name', description: 'Brief description' },
         { number: '03', name: 'Project Name', description: 'Brief description' },
       ],

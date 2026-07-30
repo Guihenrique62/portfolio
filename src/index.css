@@ -74,6 +74,54 @@ body {
   animation: fade-up 0.7s ease-out both;
 }
 
+/* Abertura da modal de projeto — expansão estilo janela (scale + fade) */
+@keyframes modal-expand {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-backdrop-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-collapse {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+.project-modal[open] {
+  animation: modal-expand 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-modal[open]::backdrop {
+  animation: modal-backdrop-fade 0.45s ease-out;
+}
+
+.project-modal[open].is-closing {
+  animation: modal-collapse 0.45s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+.project-modal[open].is-closing::backdrop {
+  animation: modal-backdrop-fade 0.45s ease-in reverse forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal-visible {
@@ -84,6 +132,13 @@ body {
 
   .animate-fade-down,
   .animate-fade-up {
+    animation: none;
+  }
+
+  .project-modal[open],
+  .project-modal[open]::backdrop,
+  .project-modal[open].is-closing,
+  .project-modal[open].is-closing::backdrop {
     animation: none;
   }
 }
