@@ -22,6 +22,15 @@ const jobs = [
       { file: 'public/projects/cozinha-bussmeyer-480.webp', width: 480, format: 'webp', options: { quality: 75 } },
     ],
   },
+  {
+    source: 'public/projects/lumina-detail.png',
+    outputs: [
+      { file: 'public/projects/lumina-detail.avif', width: 960, format: 'avif', options: { quality: 55 } },
+      { file: 'public/projects/lumina-detail-480.avif', width: 480, format: 'avif', options: { quality: 55 } },
+      { file: 'public/projects/lumina-detail.webp', width: 960, format: 'webp', options: { quality: 75 } },
+      { file: 'public/projects/lumina-detail-480.webp', width: 480, format: 'webp', options: { quality: 75 } },
+    ],
+  },
 ]
 
 for (const { source, square, outputs } of jobs) {

@@ -25,8 +25,8 @@ export function ProjectImage({ project, sizes, className, loading }: ProjectImag
         srcSet={`${base}-480.webp 480w, ${base}.webp 960w`}
         sizes={sizes}
         alt={project.imageAlt ?? project.name}
-        width={960}
-        height={448}
+        width={project.imageWidth ?? 960}
+        height={project.imageHeight ?? 448}
         loading={loading}
         decoding="async"
         className={className}

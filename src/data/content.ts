@@ -40,6 +40,8 @@ export interface Project {
   modalDescription?: string
   image?: string
   imageAlt?: string
+  imageWidth?: number
+  imageHeight?: number
   url?: string
 }
 
@@ -177,7 +179,18 @@ export const content: Record<Lang, SiteContent> = {
           imageAlt: 'Página inicial do site Cozinha Bussmeyer — buffet de eventos',
           url: 'https://cozinha-bussmeyer.vercel.app/',
         },
-        { number: '02', name: 'Nome Projeto', description: 'Descrição breve' },
+        {
+          number: '02',
+          name: 'Lumina Detail',
+          description: 'Landing page · Estética automotiva premium',
+          modalDescription:
+            'Landing page desenvolvida para a Lumina Detail, estúdio de estética automotiva premium. Apresenta os serviços de detalhamento, depoimentos, diferenciais, equipe e FAQ em um layout escuro e sofisticado, com foco em conversão: agendamento direto em destaque em toda a página e carregamento rápido.',
+          image: '/projects/lumina-detail',
+          imageAlt: 'Página inicial do site Lumina Detail — estética automotiva premium',
+          imageWidth: 960,
+          imageHeight: 568,
+          url: 'https://estetica-automotiva-tawny.vercel.app/',
+        },
         { number: '03', name: 'Nome Projeto', description: 'Descrição breve' },
       ],
     },
@@ -367,7 +380,18 @@ export const content: Record<Lang, SiteContent> = {
           imageAlt: 'Cozinha Bussmeyer website homepage — event catering',
           url: 'https://cozinha-bussmeyer.vercel.app/',
         },
-        { number: '02', name: 'Project Name', description: 'Brief description' },
+        {
+          number: '02',
+          name: 'Lumina Detail',
+          description: 'Landing page · Premium auto detailing',
+          modalDescription:
+            'Landing page built for Lumina Detail, a premium auto detailing studio. It showcases detailing services, testimonials, differentiators, the team and an FAQ in a sleek dark layout, with a focus on conversion: prominent booking calls-to-action throughout the page and fast loading.',
+          image: '/projects/lumina-detail',
+          imageAlt: 'Lumina Detail website homepage — premium auto detailing',
+          imageWidth: 960,
+          imageHeight: 568,
+          url: 'https://estetica-automotiva-tawny.vercel.app/',
+        },
         { number: '03', name: 'Project Name', description: 'Brief description' },
       ],
     },
