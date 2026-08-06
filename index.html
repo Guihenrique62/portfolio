@@ -55,14 +55,37 @@
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "WebSite",
+            "@id": "https://guilherme-porto.dev.br/#website",
+            "url": "https://guilherme-porto.dev.br/",
+            "name": "Guilherme Porto — Desenvolvedor Web e Automações",
+            "inLanguage": "pt-BR",
+            "publisher": { "@id": "https://guilherme-porto.dev.br/#person" },
+            "author": { "@id": "https://guilherme-porto.dev.br/#person" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://guilherme-porto.dev.br/#webpage",
+            "url": "https://guilherme-porto.dev.br/",
+            "name": "Guilherme Porto — Desenvolvedor Web e Automações | Criação de Sites, Sistemas e IA",
+            "description": "Desenvolvedor web e software engineer especializado em criação de sites, landing pages, web design, sistemas web, automação de processos e agentes de IA.",
+            "isPartOf": { "@id": "https://guilherme-porto.dev.br/#website" },
+            "about": { "@id": "https://guilherme-porto.dev.br/#person" },
+            "primaryImageOfPage": "https://guilherme-porto.dev.br/foto-perfil.png",
+            "inLanguage": "pt-BR"
+          },
+          {
             "@type": "Person",
             "@id": "https://guilherme-porto.dev.br/#person",
             "name": "Guilherme Porto",
+            "alternateName": "Guilherme Henrique Porto",
             "url": "https://guilherme-porto.dev.br/",
+            "mainEntityOfPage": { "@id": "https://guilherme-porto.dev.br/#webpage" },
             "image": "https://guilherme-porto.dev.br/foto-perfil.png",
             "jobTitle": "Desenvolvedor Web | Software Engineer",
             "email": "mailto:porttodesenvolvimento@gmail.com",
             "telephone": "+55 62 99155-6834",
+            "worksFor": { "@id": "https://guilherme-porto.dev.br/#service" },
             "knowsAbout": [
               "Desenvolvimento web",
               "Criação de sites",
@@ -79,7 +102,8 @@
             "sameAs": [
               "https://instagram.com/guilhermeporto.dev",
               "https://linkedin.com/in/guihenriqueporto",
-              "https://tiktok.com/@guilhermeporto.dev"
+              "https://tiktok.com/@guilhermeporto.dev",
+              "https://github.com/Guihenrique62"
             ]
           },
           {

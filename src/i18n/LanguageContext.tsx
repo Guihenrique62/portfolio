@@ -19,6 +19,8 @@ function langFromPath(pathname: string): Lang {
 }
 
 function resolveInitialLang(): Lang {
+  // Durante o pré-render (Node) não há window: assume o idioma padrão do site.
+  if (typeof window === 'undefined') return 'pt'
   const path = window.location.pathname
   if (path === '/en' || path.startsWith('/en/')) return 'en'
   const stored = localStorage.getItem(STORAGE_KEY)
