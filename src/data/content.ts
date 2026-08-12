@@ -171,13 +171,15 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           number: '01',
-          name: 'Cozinha Bussmeyer',
-          description: 'Site institucional · Buffet de eventos',
+          name: 'Spider-Man',
+          description: 'Site de venda de ingressos · Cinema',
           modalDescription:
-            'Site institucional desenvolvido para a Cozinha Bussmeyer, buffet de eventos em Goiânia especializado em casamentos, aniversários, formaturas e eventos corporativos. O projeto apresenta os serviços, cardápios, galeria de eventos e depoimentos de clientes, com foco em conversão: orçamento direto via WhatsApp, SEO local e carregamento rápido.',
-          image: '/projects/cozinha-bussmeyer',
-          imageAlt: 'Página inicial do site Cozinha Bussmeyer — buffet de eventos',
-          url: 'https://cozinha-bussmeyer.vercel.app/',
+            'Site desenvolvido para a venda de ingressos do novo filme do Homem-Aranha. Apresenta o filme com visual imersivo inspirado no universo do herói, sessões disponíveis e compra de ingressos online, com foco em conversão e carregamento rápido.',
+          image: '/projects/spider-man',
+          imageAlt: 'Página inicial do site de venda de ingressos do novo filme do Homem-Aranha',
+          imageWidth: 960,
+          imageHeight: 585,
+          url: 'https://spider-man-a-new-day.vercel.app/',
         },
         {
           number: '02',
@@ -191,7 +193,16 @@ export const content: Record<Lang, SiteContent> = {
           imageHeight: 568,
           url: 'https://estetica-automotiva-tawny.vercel.app/',
         },
-        { number: '03', name: 'Nome Projeto', description: 'Descrição breve' },
+        {
+          number: '03',
+          name: 'Cozinha Bussmeyer',
+          description: 'Site institucional · Buffet de eventos',
+          modalDescription:
+            'Site institucional desenvolvido para a Cozinha Bussmeyer, buffet de eventos em Goiânia especializado em casamentos, aniversários, formaturas e eventos corporativos. O projeto apresenta os serviços, cardápios, galeria de eventos e depoimentos de clientes, com foco em conversão: orçamento direto via WhatsApp, SEO local e carregamento rápido.',
+          image: '/projects/cozinha-bussmeyer',
+          imageAlt: 'Página inicial do site Cozinha Bussmeyer — buffet de eventos',
+          url: 'https://cozinha-bussmeyer.vercel.app/',
+        },
       ],
     },
     services: {
@@ -372,13 +383,15 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           number: '01',
-          name: 'Cozinha Bussmeyer',
-          description: 'Institutional website · Event catering',
+          name: 'Spider-Man',
+          description: 'Ticket sales website · Cinema',
           modalDescription:
-            'Institutional website built for Cozinha Bussmeyer, an event catering company in Goiânia, Brazil, specialized in weddings, birthdays, graduations and corporate events. The project showcases services, menus, an event gallery and client testimonials, with a focus on conversion: direct quotes via WhatsApp, local SEO and fast loading.',
-          image: '/projects/cozinha-bussmeyer',
-          imageAlt: 'Cozinha Bussmeyer website homepage — event catering',
-          url: 'https://cozinha-bussmeyer.vercel.app/',
+            'Website built for selling tickets to the new Spider-Man movie. It presents the film with an immersive visual inspired by the hero’s universe, available showtimes and online ticket purchase, with a focus on conversion and fast loading.',
+          image: '/projects/spider-man',
+          imageAlt: 'Homepage of the ticket sales website for the new Spider-Man movie',
+          imageWidth: 960,
+          imageHeight: 585,
+          url: 'https://spider-man-a-new-day.vercel.app/',
         },
         {
           number: '02',
@@ -392,7 +405,16 @@ export const content: Record<Lang, SiteContent> = {
           imageHeight: 568,
           url: 'https://estetica-automotiva-tawny.vercel.app/',
         },
-        { number: '03', name: 'Project Name', description: 'Brief description' },
+        {
+          number: '03',
+          name: 'Cozinha Bussmeyer',
+          description: 'Institutional website · Event catering',
+          modalDescription:
+            'Institutional website built for Cozinha Bussmeyer, an event catering company in Goiânia, Brazil, specialized in weddings, birthdays, graduations and corporate events. The project showcases services, menus, an event gallery and client testimonials, with a focus on conversion: direct quotes via WhatsApp, local SEO and fast loading.',
+          image: '/projects/cozinha-bussmeyer',
+          imageAlt: 'Cozinha Bussmeyer website homepage — event catering',
+          url: 'https://cozinha-bussmeyer.vercel.app/',
+        },
       ],
     },
     services: {

@@ -14,6 +14,15 @@ const jobs = [
     ],
   },
   {
+    source: 'public/projects/spider-man.png',
+    outputs: [
+      { file: 'public/projects/spider-man.avif', width: 960, format: 'avif', options: { quality: 55 } },
+      { file: 'public/projects/spider-man-480.avif', width: 480, format: 'avif', options: { quality: 55 } },
+      { file: 'public/projects/spider-man.webp', width: 960, format: 'webp', options: { quality: 75 } },
+      { file: 'public/projects/spider-man-480.webp', width: 480, format: 'webp', options: { quality: 75 } },
+    ],
+  },
+  {
     source: 'public/projects/cozinha-bussmeyer.png',
     outputs: [
       { file: 'public/projects/cozinha-bussmeyer.avif', width: 960, format: 'avif', options: { quality: 55 } },
