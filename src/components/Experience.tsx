@@ -1,99 +1,61 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { Reveal } from './Reveal'
+import { SectionTitle } from './SectionTitle'
+import dotBlue from '../assets/icons/timeline-dot-blue.svg'
+import dotDark from '../assets/icons/timeline-dot-dark.svg'
 
+/**
+ * "Minha Experiência" (Figma node 61:611): título centralizado e timeline
+ * vertical com linha tracejada, marcadores (azul, escuro, azul) e cargos.
+ */
 export function Experience() {
   const { t } = useLanguage()
+  const { experience } = t
 
   return (
-    <section id="experiencias" className="border-t border-line">
-      <div className="mx-auto max-w-360 px-6 py-12 md:px-12 md:py-16">
-        <Reveal className="flex items-center gap-6">
-          <h2 className="shrink-0 text-xl font-extrabold tracking-wide sm:text-2xl md:text-3xl">
-            {t.experience.title}
-          </h2>
-          <div className="hidden h-px flex-1 bg-line sm:block" />
+    <section id="experiencia" className="cv-auto py-16 md:py-[85px]" aria-labelledby="experiencia-titulo">
+      <div className="container-site">
+        <Reveal>
+          <SectionTitle as="h2" align="center" text={experience.title} />
         </Reveal>
-        <Reveal as="p" delay={100} className="mt-3 text-sm text-muted">
-          {t.experience.subtitle}
-        </Reveal>
+        <span id="experiencia-titulo" className="sr-only">
+          {experience.title.replace(/[{}]/g, '')}
+        </span>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 md:mt-12 lg:grid-cols-3 lg:gap-8">
-          {t.experience.items.map((experience, index) => (
+        <ol className="mt-12 flex flex-col gap-12 md:mt-[85px] lg:ml-[24%]">
+          {experience.items.map((item, index) => (
             <Reveal
-              as="article"
-              key={experience.title}
+              as="li"
+              key={item.title}
               delay={index * 120}
-              className="group flex flex-col rounded-sm border border-line bg-card p-6 transition-colors hover:border-primary/40"
+              className="relative grid grid-cols-[48px_minmax(0,1fr)] gap-6 md:gap-[110px]"
             >
-              <div className="flex items-start gap-4">
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-lg border border-primary/60 text-primary-bright transition-all duration-300 group-hover:scale-110 group-hover:border-primary">
-                  <experience.icon className="size-6" strokeWidth={1.5} />
-                </span>
-                <div>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary-bright">
-                    {experience.title}
-                  </h3>
-                  <p className="mt-1 text-xs font-bold tracking-wider text-muted">
-                    {experience.period}
+              {/* Linha tracejada até o próximo marcador */}
+              {index < experience.items.length - 1 && (
+                <div
+                  aria-hidden="true"
+                  className="absolute -bottom-12 left-[23px] top-12 w-0.5 bg-[repeating-linear-gradient(to_bottom,var(--color-slate)_0_6px,transparent_6px_12px)]"
+                />
+              )}
+              <img
+                src={index % 2 === 0 ? dotBlue : dotDark}
+                alt=""
+                aria-hidden="true"
+                width={48}
+                height={48}
+                className="relative z-10 size-12 shrink-0"
+              />
+              <div className="flex max-w-[621px] flex-col gap-3.5 pt-1">
+                <h3 className="text-h3 text-slate">{item.title}</h3>
+                {item.description && (
+                  <p className="max-w-[444px] text-body-lg font-medium text-muted">
+                    {item.description}
                   </p>
-                </div>
+                )}
               </div>
-
-              <p className="mt-4 text-xs leading-relaxed text-muted">{experience.description}</p>
-
-              {experience.highlight && (
-                <p className="mt-4 text-xs font-bold tracking-wide text-white">
-                  {experience.highlight}
-                </p>
-              )}
-
-              {experience.technologies && (
-                <div className="mt-5">
-                  <h4 className="text-[11px] font-bold uppercase tracking-widest text-white">
-                    {t.experience.techLabel}
-                  </h4>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {experience.technologies.map((tech) => (
-                      <li
-                        key={tech}
-                        className="rounded-full border border-primary/60 px-3 py-1 text-[11px] font-medium text-primary-bright"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {experience.achievements && (
-                <div className="mt-5">
-                  <h4 className="text-[11px] font-bold uppercase tracking-widest text-white">
-                    {experience.achievementsLabel}
-                  </h4>
-                  <ul className="mt-3 space-y-2">
-                    {experience.achievements.map((achievement) => (
-                      <li key={achievement} className="flex gap-2 text-xs leading-relaxed text-muted">
-                        <span className="text-primary-bright">•</span>
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {experience.certifications && (
-                <ul className="mt-5 space-y-3">
-                  {experience.certifications.map((certification) => (
-                    <li key={certification} className="flex gap-2 text-xs leading-relaxed text-muted">
-                      <span className="text-primary-bright">•</span>
-                      {certification}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )

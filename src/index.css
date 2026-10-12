@@ -1,24 +1,108 @@
-@import "@fontsource/anton";
-@import "@fontsource-variable/inter";
 @import "tailwindcss";
 
-@theme {
-  --color-background: #050506;
-  --color-surface: #0b0b0e;
-  --color-card: #101014;
-  --color-line: #1e1e24;
-  --color-primary: #2f6bff;
-  --color-primary-bright: #3d7bff;
-  --color-primary-deep: #0b2a7a;
-  --color-whatsapp: #23c15f;
-  --color-muted: #a1a1aa;
+/*
+ * Fontes self-hosted (subset latin, só woff2) em public/fonts/, copiadas do
+ * @fontsource por scripts/copy-fonts.mjs. Nomes estáveis permitem preload no
+ * index.html e cache imutável.
+ */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/urbanist-latin-700-normal.woff2") format("woff2");
+}
 
-  --font-display: "Anton", sans-serif;
-  --font-sans: "Inter Variable", "Inter", sans-serif;
+/*
+ * Design tokens — extraídos do protótipo Figma "Desktop - 2"
+ * (arquivo ULIKbS4nkL7xFyHAcWWqT2). Nomes seguem o papel da cor, não o valor.
+ */
+@theme {
+  /* Fundo e superfícies */
+  --color-background: #ffffff;
+  --color-surface: #f2f4f7; /* card "Por que me contratar", pills */
+  --color-ink: #171717; /* nav, seções escuras, texto principal do hero */
+  --color-footer: #272727;
+  --color-card: #ffffff;
+
+  /* Destaque */
+  --color-primary: #2563eb;
+  --color-primary-bright: #3b76f6; /* hover do azul */
+  --color-primary-deep: #1d4ed8; /* active do azul */
+  --color-primary-soft: #5b8df9; /* azul em fundo escuro (contraste 4.7:1 no footer) */
+  --color-accent: #fd853a; /* borda do botão-seta dos projetos */
+  --color-whatsapp: #23c15f;
+
+  /* Texto */
+  --color-slate: #344054; /* H2/H3 em fundo claro */
+  --color-slate-deep: #1d2939; /* números */
+  --color-muted: #98a2b3; /* parágrafos secundários */
+  --color-muted-strong: #667085; /* labels */
+  --color-snow: #fcfcfd; /* texto em fundo escuro */
+  --color-snow-soft: #f9fafb;
+  --color-cream: #fffaf5; /* título dos cards de projeto */
+
+  /* Linhas */
+  --color-line: #e4e7ec;
+  --color-line-soft: #d0d5dd;
+  --color-input-icon: #e6eeff;
+
+  /* Fontes */
+  --font-display: "Urbanist", sans-serif;
+  --font-sans: "Poppins", sans-serif;
+
+  /* Raios do protótipo */
+  --radius-section: 50px;
+  --radius-pill: 60px;
+  --radius-card: 24px;
+  --radius-project: 20px;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7.5rem; /* altura da nav flutuante + folga */
 }
 
 html,
@@ -26,8 +110,94 @@ body {
   overflow-x: clip;
 }
 
-/* Reveal on scroll — apenas opacity/transform (compositor, sem reflow) */
-.reveal {
+body {
+  background-color: var(--color-background);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------------------------------------------------
+ * Layout
+ * ------------------------------------------------------------------------ */
+
+/* Largura útil do protótipo: 1298px (1440 − 2×71). */
+@utility container-site {
+  width: 100%;
+  max-width: calc(1298px + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  --gutter: 1rem;
+  @media (width >= 40rem) {
+    --gutter: 2.5rem;
+  }
+  @media (width >= 80rem) {
+    --gutter: 71px;
+  }
+}
+
+/* Seções abaixo da dobra: o navegador pula layout/paint até se aproximarem
+   do viewport. O placeholder de 900px evita saltos na barra de rolagem. */
+@utility cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* Seções com cantos arredondados: 50px no desktop, 24px no mobile. */
+@utility section-rounded {
+  border-radius: 24px;
+  @media (width >= 48rem) {
+    border-radius: var(--radius-section);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Escala tipográfica fluida (tamanhos do Figma em 1440px como teto)
+ * ------------------------------------------------------------------------ */
+
+@utility text-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.2rem + 6vw, 6rem); /* 40 → 96px */
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+@utility text-h2 {
+  font-weight: 600;
+  font-size: clamp(2rem, 1rem + 4.2vw, 4rem); /* 32 → 64px */
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+@utility text-h2-sm {
+  font-weight: 500;
+  font-size: clamp(1.75rem, 1rem + 3vw, 3rem); /* 28 → 48px */
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+@utility text-h3 {
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.5rem); /* 24 → 40px */
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+@utility text-body-lg {
+  font-size: clamp(1rem, 0.9rem + 0.45vw, 1.25rem); /* 16 → 20px */
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+}
+
+/* ---------------------------------------------------------------------------
+ * Reveal on scroll — apenas opacity/transform (compositor, sem reflow).
+ * Só esconde quando o JS está ativo (html.js, adicionado em index.html):
+ * crawlers e navegadores sem JS recebem o HTML pré-renderizado já visível.
+ * ------------------------------------------------------------------------ */
+html.js .reveal {
   opacity: 0;
   transform: translateY(22px);
   transition:
@@ -38,7 +208,7 @@ body {
     background-color 0.2s;
 }
 
-.reveal-visible {
+html.js .reveal-visible {
   opacity: 1;
   transform: none;
 }
@@ -66,11 +236,11 @@ body {
   }
 }
 
-.animate-fade-down {
+html.js .animate-fade-down {
   animation: fade-down 0.7s ease-out both;
 }
 
-.animate-fade-up {
+html.js .animate-fade-up {
   animation: fade-up 0.7s ease-out both;
 }
 
@@ -122,17 +292,74 @@ body {
   animation: modal-backdrop-fade 0.45s ease-in reverse forwards;
 }
 
+/* Marquee: a faixa duplica o conteúdo e desloca metade da largura em loop */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee-band:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Esteira de feedbacks: conteúdo duplicado, desloca metade da largura em loop
+   (direita → esquerda, devagar). Pausa no hover; sem animação com reduced-motion. */
+.feedback-track {
+  width: max-content;
+  animation: marquee var(--feedback-duration, 150s) linear infinite;
+  will-change: transform;
+}
+
+.feedback-marquee:hover .feedback-track,
+.feedback-marquee:focus-within .feedback-track {
+  animation-play-state: paused;
+}
+
+/* Menu mobile da nav */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.nav-menu[data-open="true"] {
+  animation: menu-in 0.25s ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-visible {
+  html.js .reveal,
+  html.js .reveal-visible {
     opacity: 1;
     transform: none;
     transition: none;
   }
 
-  .animate-fade-down,
-  .animate-fade-up {
+  html.js .animate-fade-down,
+  html.js .animate-fade-up,
+  .nav-menu[data-open="true"],
+  .marquee-track,
+  .feedback-track {
     animation: none;
+  }
+
+  /* Sem animação, a esteira vira uma lista rolável no eixo horizontal */
+  .feedback-marquee {
+    overflow-x: auto;
   }
 
   .project-modal[open],
@@ -141,11 +368,15 @@ body {
   .project-modal[open].is-closing::backdrop {
     animation: none;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-body {
-  background-color: var(--color-background);
-  color: #ffffff;
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+/* Foco visível consistente (teclado) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
 }

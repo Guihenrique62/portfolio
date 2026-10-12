@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { ArrowUpRight, X } from 'lucide-react'
 import type { Project } from '../data/content'
 import { useLanguage } from '../i18n/LanguageContext'
+import { Button } from './Button'
 import { ProjectImage } from './ProjectImage'
 
 interface ProjectModalProps {
@@ -9,6 +10,7 @@ interface ProjectModalProps {
   onClose: () => void
 }
 
+/** Modal de detalhes do projeto (<dialog> nativo, tema claro do redesign). */
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const { t } = useLanguage()
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -42,7 +44,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         dialog.classList.remove('is-closing')
         dialog.close()
       },
-      { once: false },
+      { once: true },
     )
   }, [])
 
@@ -60,42 +62,37 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         if (event.target === dialogRef.current) closeWithAnimation()
       }}
       aria-labelledby="project-modal-title"
-      className="project-modal m-auto w-[min(92vw,40rem)] rounded-sm border border-line bg-card p-0 text-white backdrop:bg-black/70"
+      className="project-modal m-auto w-[min(92vw,44rem)] rounded-card bg-white p-0 text-ink shadow-2xl backdrop:bg-ink/70 backdrop:backdrop-blur-sm"
     >
       <div className="relative">
         <button
           type="button"
           onClick={closeWithAnimation}
           aria-label={t.projects.close}
-          className="absolute right-3 top-3 cursor-pointer rounded-sm border border-line bg-background/80 p-2 text-muted transition-colors hover:border-primary/40 hover:text-white"
+          className="absolute right-3 top-3 z-10 flex size-11 cursor-pointer items-center justify-center rounded-full bg-white/90 text-ink shadow transition-colors hover:bg-primary hover:text-white"
         >
-          <X className="size-5" strokeWidth={1.5} />
+          <X className="size-5" strokeWidth={2} />
         </button>
 
         <ProjectImage
           project={project}
-          sizes="(min-width: 640px) 40rem, 92vw"
-          className="h-auto w-full"
+          sizes="(min-width: 704px) 44rem, 92vw"
+          className="h-auto w-full rounded-t-card"
         />
 
         <div className="p-6 md:p-8">
-          <span className="text-2xl font-extrabold text-primary-bright">{project.number}</span>
-          <h3 id="project-modal-title" className="mt-2 text-xl font-extrabold tracking-wide md:text-2xl">
-            {project.name.toUpperCase()}
+          <h3 id="project-modal-title" className="text-h3 text-slate">
+            {project.name}
           </h3>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
+          <p className="mt-1 text-base text-muted-strong">{project.description}</p>
+          <p className="mt-4 text-body-lg text-muted">
             {project.modalDescription ?? project.description}
           </p>
           {project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-3 rounded-sm border border-line px-5 py-3 text-xs font-bold tracking-widest transition-colors hover:border-primary/40 hover:text-primary-bright"
-            >
+            <Button href={project.url} className="mt-6">
               {t.projects.visitSite}
-              <ArrowUpRight className="size-5" strokeWidth={1.5} />
-            </a>
+              <ArrowUpRight className="size-5" strokeWidth={2} />
+            </Button>
           )}
         </div>
       </div>

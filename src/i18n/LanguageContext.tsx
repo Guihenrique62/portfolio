@@ -4,80 +4,126 @@ import {
   useContext,
   useEffect,
   useState,
+  type MouseEvent,
   type ReactNode,
 } from 'react'
-import { content, siteUrl, type Lang, type SiteContent } from '../data/content'
+import { content, type Lang, type SiteContent } from '../data/content'
+import { parsePath, pathFor, type Route } from '../router'
+import { applySeo, getSeo } from '../seo/meta'
 
 const STORAGE_KEY = 'lang'
 
-function pathFor(lang: Lang) {
-  return lang === 'en' ? '/en' : '/'
-}
-
-function langFromPath(pathname: string): Lang {
-  return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'pt'
-}
-
-function resolveInitialLang(): Lang {
-  // Durante o pré-render (Node) não há window: assume o idioma padrão do site.
-  if (typeof window === 'undefined') return 'pt'
-  const path = window.location.pathname
-  if (path === '/en' || path.startsWith('/en/')) return 'en'
+/**
+ * Preferência do visitante quando ele abre "/" sem escolher idioma:
+ * última escolha salva ou idioma do navegador.
+ */
+function preferredLang(): Lang {
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored === 'pt' || stored === 'en') return stored
   return navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'
 }
 
-function applyDocumentLang(lang: Lang) {
-  const meta = content[lang].meta
-  document.documentElement.lang = meta.htmlLang
-  document.title = meta.title
-  document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description)
-  document
-    .querySelector('link[rel="canonical"]')
-    ?.setAttribute('href', lang === 'en' ? `${siteUrl}en` : siteUrl)
-}
-
 interface LanguageContextValue {
   lang: Lang
+  route: Route
   setLang: (lang: Lang) => void
+  /** Navegação interna (pushState) para outra rota, sem recarregar. */
+  navigate: (route: Route) => void
+  /** Handler para <a href> internos: intercepta cliques simples. */
+  linkTo: (route: Route) => { href: string; onClick: (event: MouseEvent<HTMLAnchorElement>) => void }
   t: SiteContent
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(resolveInitialLang)
+interface LanguageProviderProps {
+  children: ReactNode
+  /** Idioma/rota do pré-render (servidor). No cliente vêm do <html>. */
+  initialLang?: Lang
+  initialRoute?: Route
+}
 
+/** Estado inicial no cliente: o que o servidor entregou (<html lang data-route>). */
+function initialFromDocument(): { lang: Lang; route: Route } {
+  const html = document.documentElement
+  const lang: Lang = html.lang.toLowerCase().startsWith('en') ? 'en' : 'pt'
+  const dataRoute = html.dataset.route
+  if (dataRoute === 'home' || dataRoute === 'projects') return { lang, route: dataRoute }
+  // Dev (sem pré-render): deriva da URL.
+  return { lang, route: parsePath(window.location.pathname).route }
+}
+
+export function LanguageProvider({ children, initialLang, initialRoute }: LanguageProviderProps) {
+  const [state, setState] = useState<{ lang: Lang; route: Route }>(() =>
+    typeof window === 'undefined'
+      ? { lang: initialLang ?? 'pt', route: initialRoute ?? 'home' }
+      : initialFromDocument(),
+  )
+  const { lang, route } = state
+
+  const apply = useCallback((next: { lang: Lang; route: Route }) => {
+    setState(next)
+    document.documentElement.dataset.route = next.route
+    applySeo(getSeo(next.lang, next.route))
+  }, [])
+
+  // Reconcilia URL + preferência salva depois de montar (sem divergir a hidratação).
   useEffect(() => {
-    // Alinha a URL com o idioma resolvido na primeira visita (ex.: preferência
-    // salva ou navegador em inglês abrindo "/") sem criar entrada no histórico.
-    if (langFromPath(window.location.pathname) !== lang) {
-      window.history.replaceState(null, '', pathFor(lang) + window.location.hash)
+    const fromUrl = parsePath(window.location.pathname)
+    const preferred: Lang =
+      window.location.pathname === '/' ? preferredLang() : fromUrl.lang
+    const next = { lang: preferred, route: fromUrl.route }
+    if (preferred !== fromUrl.lang) {
+      window.history.replaceState(null, '', pathFor(preferred, next.route) + window.location.hash)
     }
-    applyDocumentLang(lang)
+    apply(next)
 
-    const onPopState = () => {
-      const urlLang = langFromPath(window.location.pathname)
-      setLangState(urlLang)
-      applyDocumentLang(urlLang)
-    }
+    const onPopState = () => apply(parsePath(window.location.pathname))
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [apply])
 
-  const setLang = useCallback((next: Lang) => {
-    setLangState(next)
-    localStorage.setItem(STORAGE_KEY, next)
-    if (langFromPath(window.location.pathname) !== next) {
-      window.history.pushState(null, '', pathFor(next) + window.location.hash)
-    }
-    applyDocumentLang(next)
-  }, [])
+  const setLang = useCallback(
+    (next: Lang) => {
+      localStorage.setItem(STORAGE_KEY, next)
+      const target = pathFor(next, route)
+      if (window.location.pathname !== target) {
+        window.history.pushState(null, '', target + window.location.hash)
+      }
+      apply({ lang: next, route })
+    },
+    [apply, route],
+  )
+
+  const navigate = useCallback(
+    (next: Route) => {
+      if (next === route) {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        return
+      }
+      window.history.pushState(null, '', pathFor(lang, next))
+      apply({ lang, route: next })
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+    },
+    [apply, lang, route],
+  )
+
+  const linkTo = useCallback(
+    (next: Route) => ({
+      href: pathFor(lang, next),
+      onClick: (event: MouseEvent<HTMLAnchorElement>) => {
+        // Deixa o navegador agir em cliques com modificador (nova aba etc.).
+        if (event.defaultPrevented || event.button !== 0) return
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+        event.preventDefault()
+        navigate(next)
+      },
+    }),
+    [lang, navigate],
+  )
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: content[lang] }}>
+    <LanguageContext.Provider value={{ lang, route, setLang, navigate, linkTo, t: content[lang] }}>
       {children}
     </LanguageContext.Provider>
   )

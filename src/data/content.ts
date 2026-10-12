@@ -1,41 +1,27 @@
-import type { LucideIcon } from 'lucide-react'
-import {
-  PanelsTopLeft,
-  MonitorCog,
-  MousePointerClick,
-  Bot,
-  ChartNoAxesCombined,
-  Wrench,
-  Search,
-  Lightbulb,
-  Pencil,
-  CodeXml,
-  Send,
-  Mail,
-  Globe,
-  Phone,
-  Briefcase,
-  Workflow,
-  GraduationCap,
-} from 'lucide-react'
-
 export type Lang = 'pt' | 'en'
 
 export const siteUrl = 'https://guilherme-porto.dev.br/'
 
 export const links = {
   whatsapp: 'https://wa.me/5562991556834',
-  email: 'porttodesenvolvimento@gmail.com',
+  email: 'guilhermeportosantos1@gmail.com',
   site: 'guilherme-porto.dev.br',
-  phone: '+55 62 99155-6834',
+  phone: '+55 (62) 99155-6834',
+  phoneHref: '+5562991556834',
   instagram: 'https://instagram.com/guilhermeporto.dev',
   linkedin: 'https://linkedin.com/in/guihenriqueporto',
   tiktok: 'https://tiktok.com/@guilhermeporto.dev',
+  github: 'https://github.com/Guihenrique62',
 }
+
+export type ProjectCategory = 'landing' | 'site' | 'sistema' | 'saas' | 'agente' | 'manutencao'
 
 export interface Project {
   number: string
   name: string
+  category: ProjectCategory
+  /** Aparece na home (carrossel); os demais só na página /projetos. */
+  featured: boolean
   description: string
   modalDescription?: string
   image?: string
@@ -46,47 +32,24 @@ export interface Project {
 }
 
 export interface Service {
-  icon: LucideIcon
   title: string
   description: string
-}
-
-export interface ProcessStep {
-  number: string
-  icon: LucideIcon
-  title: string
-  description: string
+  /** Base do mockup em public/services/ (sem extensão). */
+  image: 'uiux' | 'sistemas' | 'web'
+  imageAlt: string
 }
 
 export interface Testimonial {
   name: string
+  role?: string
   text: string
 }
 
 export interface Experience {
-  icon: LucideIcon
   title: string
-  period: string
-  description: string
-  highlight?: string
-  technologies?: string[]
-  achievementsLabel?: string
-  achievements?: string[]
-  certifications?: string[]
+  /** Opcional: o 3º item do protótipo não tem descrição. */
+  description?: string
 }
-
-export interface ContactItem {
-  icon: LucideIcon
-  label: string
-  href: string
-}
-
-// Contatos e redes são iguais nos dois idiomas
-export const contacts: ContactItem[] = [
-  { icon: Mail, label: links.email, href: `mailto:${links.email}` },
-  { icon: Globe, label: links.site, href: `https://${links.site}` },
-  { icon: Phone, label: links.phone, href: links.whatsapp },
-]
 
 export interface SiteContent {
   meta: {
@@ -94,47 +57,105 @@ export interface SiteContent {
     description: string
     htmlLang: string
   }
-  header: {
-    role: string
-    whatsappPrefix: string
+  nav: {
+    /** Itens da pill de navegação; `id` é a âncora da seção (sem `#`). */
+    items: { id: string; label: string }[]
+    openMenu: string
+    closeMenu: string
+    languageLabel: string
+    brand: string
   }
   hero: {
-    seoH1: string
-    role: string
+    /** Badge "Olá!" acima do título. */
+    badge: string
+    /** H1 em três partes: prefixo, nome (destacado em azul) e sufixo. */
+    titlePrefix: string
+    name: string
+    titleSuffix: string
     description: string
+    years: { value: string; label: string }
+    ctaPortfolio: string
+    ctaHire: string
+    photoAlt: string
+  }
+  projectsPage: {
+    metaTitle: string
+    metaDescription: string
+    /** Título com destaque via `{{palavra}}`. */
+    title: string
+    intro: string
+    backLabel: string
+    /** Contador, com `{n}`. */
+    countLabel: string
+  }
+  about: {
+    /** Título com destaque via `{{palavra}}`. */
+    title: string
+    text: string
     stats: { value: string; label: string }[]
+    cta: string
+    photoAlt: string
   }
   projects: {
+    /** Título com destaque via `{{palavra}}`. */
     title: string
     viewAll: string
-    quote: string
+    carouselLabel: string
+    /** Rótulo do dot, com `{n}`. */
+    pageLabel: string
+    filterLabel: string
+    filters: { id: 'all' | ProjectCategory; label: string }[]
+    /** Rótulo do card, com `{project}`. */
+    openLabel: string
     visitSite: string
     close: string
     items: Project[]
   }
   services: {
+    /** Título com destaque via `{{palavra}}`. */
     title: string
+    carouselLabel: string
+    /** Rótulo do dot, com `{n}`. */
+    pageLabel: string
+    /** Rótulo do botão-seta, com `{service}`. */
+    ctaLabel: string
+    /** Mensagem pré-preenchida no WhatsApp, com `{service}`. */
+    whatsappMessage: string
     items: Service[]
   }
-  process: {
-    title: string
-    steps: ProcessStep[]
-  }
+  /** Itens da faixa marquee (separados por estrelas). */
+  marquee: string[]
+  marqueeLabel: string
   feedback: {
+    /** Título com destaque via `{{palavra}}`. */
     title: string
+    carouselLabel: string
+    pageLabel: string
+    ratingLabel: string
     testimonials: Testimonial[]
   }
   experience: {
+    /** Título com destaque via `{{palavra}}`. */
     title: string
-    subtitle: string
-    techLabel: string
     items: Experience[]
+  }
+  cta: {
+    /** Título com destaque via `{{palavra}}`. */
+    title: string
+    /** Texto do botão que abre o WhatsApp. */
+    button: string
+    /** Mensagem pré-preenchida no WhatsApp. */
+    whatsappMessage: string
+    badges: { rating: string; certified: string }
   }
   footer: {
     title: string
+    cta: string
     text: string
-    whatsappButton: string
-    followTitle: string
+    socialLabel: string
+    navTitle: string
+    contactTitle: string
+    rights: string
   }
 }
 
@@ -146,32 +167,77 @@ export const content: Record<Lang, SiteContent> = {
         'Desenvolvedor web e software engineer especializado em criação de sites, landing pages, web design, sistemas web, automação de processos e agentes de IA. Transforme sua ideia em um produto digital moderno e performático.',
       htmlLang: 'pt-BR',
     },
-    header: {
-      role: 'Software Developer',
-      whatsappPrefix: 'CHAME NO',
+    nav: {
+      items: [
+        { id: 'inicio', label: 'Home' },
+        { id: 'sobre', label: 'Sobre' },
+        { id: 'servicos', label: 'Serviços' },
+        { id: 'experiencia', label: 'Experiência' },
+        { id: 'projetos', label: 'Projetos' },
+        { id: 'contato', label: 'Contato' },
+      ],
+      openMenu: 'Abrir menu',
+      closeMenu: 'Fechar menu',
+      languageLabel: 'Idioma',
+      brand: 'Guilherme Porto',
     },
     hero: {
-      seoH1:
-        'Guilherme Porto — Desenvolvedor Web, Criação de Sites, Web Design e Automação de Processos',
-      role: 'Software Developer',
+      badge: 'Olá!',
+      titlePrefix: 'Eu sou ',
+      name: 'Guilherme Porto',
+      titleSuffix: ', Desenvolvedor Web',
       description:
         'Eu gosto de transformar ideias em coisas reais, criando experiências digitais, sites e sistemas que unem design, tecnologia e funcionalidade. Também desenvolvo automações e agentes inteligentes para simplificar processos, resolver problemas e ajudar negócios a evoluírem.',
+      years: { value: '5 Anos', label: 'de experiência' },
+      ctaPortfolio: 'Portfolio',
+      ctaHire: 'Contratar',
+      photoAlt: 'Guilherme Porto, desenvolvedor web, de óculos e blazer escuro',
+    },
+    projectsPage: {
+      metaTitle: 'Projetos — Guilherme Porto | Sites, Landing Pages e Sistemas Web',
+      metaDescription:
+        'Todos os projetos de Guilherme Porto: sites institucionais, landing pages, sistemas web e automações desenvolvidos com foco em design, performance e conversão.',
+      title: 'Todos os meus {{Projetos}}',
+      intro:
+        'Sites institucionais, landing pages, sistemas web e automações que desenvolvi para clientes de diferentes segmentos, sempre com foco em design, performance e conversão. Clique em um projeto para ver os detalhes e acessar o site.',
+      backLabel: 'Voltar para a home',
+      countLabel: '{n} projetos',
+    },
+    about: {
+      title: 'Por que me {{contratar}}?',
+      text:
+        'Não entrego só código. Entrego um produto pronto para gerar resultado, pensado do design à estratégia de negócio, para crescer junto com você.',
       stats: [
-        { value: '3+', label: 'Anos de\nexperiência' },
-        { value: '30+', label: 'Projetos\ncompletos' },
-        { value: '25+', label: 'Clientes\nfelizes' },
+        { value: '45+', label: 'Projetos Completos' },
+        { value: '5+', label: 'Anos de Experiência' },
       ],
+      cta: 'Contratar',
+      photoAlt: 'Guilherme Porto sorrindo e apontando para o lado, com a mão na cabeça',
     },
     projects: {
-      title: 'PROJETOS SELECIONADOS',
-      viewAll: 'VER TODOS',
-      quote: 'FAÇA UM ORÇAMENTO',
-      visitSite: 'VISITAR SITE',
+      title: 'Vamos dar uma olhada no meu {{Portfólio}}',
+      viewAll: 'Ver tudo',
+      carouselLabel: 'Projetos',
+      pageLabel: 'Ir para a página {n} dos projetos',
+      filterLabel: 'Filtrar projetos por categoria',
+      filters: [
+        { id: 'all', label: 'Todos' },
+        { id: 'landing', label: 'Landing Pages' },
+        { id: 'site', label: 'Sites' },
+        { id: 'sistema', label: 'Sistemas' },
+        { id: 'saas', label: 'SaaS' },
+        { id: 'agente', label: 'Agentes' },
+        { id: 'manutencao', label: 'Manutenção' },
+      ],
+      openLabel: 'Ver detalhes do projeto {project}',
+      visitSite: 'Visitar site',
       close: 'Fechar',
       items: [
         {
           number: '01',
           name: 'Spider-Man',
+          category: 'landing',
+          featured: true,
           description: 'Site de venda de ingressos · Cinema',
           modalDescription:
             'Site desenvolvido para a venda de ingressos do novo filme do Homem-Aranha. Apresenta o filme com visual imersivo inspirado no universo do herói, sessões disponíveis e compra de ingressos online, com foco em conversão e carregamento rápido.',
@@ -184,6 +250,8 @@ export const content: Record<Lang, SiteContent> = {
         {
           number: '02',
           name: 'Lumina Detail',
+          category: 'landing',
+          featured: true,
           description: 'Landing page · Estética automotiva premium',
           modalDescription:
             'Landing page desenvolvida para a Lumina Detail, estúdio de estética automotiva premium. Apresenta os serviços de detalhamento, depoimentos, diferenciais, equipe e FAQ em um layout escuro e sofisticado, com foco em conversão: agendamento direto em destaque em toda a página e carregamento rápido.',
@@ -196,158 +264,181 @@ export const content: Record<Lang, SiteContent> = {
         {
           number: '03',
           name: 'Cozinha Bussmeyer',
+          category: 'site',
+          featured: true,
           description: 'Site institucional · Buffet de eventos',
           modalDescription:
             'Site institucional desenvolvido para a Cozinha Bussmeyer, buffet de eventos em Goiânia especializado em casamentos, aniversários, formaturas e eventos corporativos. O projeto apresenta os serviços, cardápios, galeria de eventos e depoimentos de clientes, com foco em conversão: orçamento direto via WhatsApp, SEO local e carregamento rápido.',
           image: '/projects/cozinha-bussmeyer',
           imageAlt: 'Página inicial do site Cozinha Bussmeyer — buffet de eventos',
+          imageWidth: 1568,
+          imageHeight: 731,
           url: 'https://cozinha-bussmeyer.vercel.app/',
         },
       ],
     },
     services: {
-      title: 'SERVIÇOS',
+      title: 'Meus {{Serviços}}',
+      carouselLabel: 'Serviços',
+      pageLabel: 'Ir para a página {n} dos serviços',
+      ctaLabel: 'Pedir orçamento de {service} pelo WhatsApp',
+      whatsappMessage: 'Olá, gostaria de um orçamento para {service}.',
       items: [
         {
-          icon: PanelsTopLeft,
-          title: 'Desenvolvimento Web',
+          title: 'UI/UX Design',
           description:
-            'Criação de sites e landing pages modernos, responsivos e visualmente marcantes.',
+            'Interfaces intuitivas e experiências digitais pensadas para conectar pessoas e tecnologia.',
+          image: 'uiux',
+          imageAlt: 'Telas de aplicativo de casa inteligente, exemplo de UI/UX design',
         },
         {
-          icon: MonitorCog,
           title: 'Sistemas Web',
           description:
             'Desenvolvimento de sistemas personalizados para otimizar processos e operações.',
+          image: 'sistemas',
+          imageAlt: 'Dashboard de sistema web com gráficos e métricas',
         },
         {
-          icon: MousePointerClick,
-          title: 'UI/UX Experience',
+          title: 'Desenvolvimento Web',
           description:
-            'Interfaces intuitivas e experiências digitais pensadas para conectar pessoas e tecnologia.',
+            'Criação de sites e landing pages modernos, responsivos e visualmente marcantes.',
+          image: 'web',
+          imageAlt: 'Telas de site e aplicativo de delivery, exemplo de desenvolvimento web',
         },
         {
-          icon: Bot,
           title: 'Agentes Inteligentes',
           description: 'Soluções com IA para automatizar tarefas, analisar dados e executar processos.',
+          image: 'sistemas',
+          imageAlt: 'Dashboard com indicadores automatizados por agentes de IA',
         },
         {
-          icon: ChartNoAxesCombined,
           title: 'Conversão e Performance',
           description: 'Experiências otimizadas para melhorar resultados, engajamento e conversões.',
+          image: 'web',
+          imageAlt: 'Landing page otimizada para conversão em desktop e celular',
         },
         {
-          icon: Wrench,
           title: 'Manutenção',
           description:
             'Evolução contínua, correções e melhorias para manter seus produtos digitais sempre eficientes.',
+          image: 'uiux',
+          imageAlt: 'Telas de aplicativo em evolução contínua',
         },
       ],
     },
-    process: {
-      title: 'PROCESSO',
-      steps: [
-        {
-          number: '01',
-          icon: Search,
-          title: 'Descoberta',
-          description: 'Entendemos o problema, os objetivos e os requisitos do projeto.',
-        },
-        {
-          number: '02',
-          icon: Lightbulb,
-          title: 'Ideação',
-          description: 'Transformamos ideias e necessidades em uma estratégia e solução bem definida.',
-        },
-        {
-          number: '03',
-          icon: Pencil,
-          title: 'Design',
-          description: 'Criamos a experiência visual e funcional que dará vida à solução.',
-        },
-        {
-          number: '04',
-          icon: CodeXml,
-          title: 'Desenvolvimento',
-          description:
-            'Transformamos o design em um produto digital funcional, performático e escalável.',
-        },
-        {
-          number: '05',
-          icon: Send,
-          title: 'Entrega',
-          description: 'Colocamos o projeto no ar e garantimos que tudo esteja pronto para evoluir.',
-        },
-      ],
-    },
+    marquee: [
+      'UX Design',
+      'Sistemas Web',
+      'Dashboards',
+      'Manutenção',
+      'Agentes Inteligentes',
+      'Landing Pages',
+      'Automações',
+      'Criação de Sites',
+    ],
+    marqueeLabel: 'Especialidades',
     feedback: {
-      title: 'FEEDBACK',
+      title: 'Feedbacks que falam\nsobre {{meus Resultados}}',
+      carouselLabel: 'Depoimentos',
+      pageLabel: 'Ir para o depoimento {n}',
+      ratingLabel: 'Avaliação 5 de 5',
       testimonials: [
         {
           name: 'Mariana Oliveira',
+          role: 'Diretora de marketing',
           text: 'O Guilherme transformou nossa ideia em uma experiência digital moderna, funcional e muito além do que imaginávamos.',
         },
         {
           name: 'Rafael Mendes',
+          role: 'Fundador de startup',
           text: 'O Guilherme entendeu rapidamente o que precisávamos e entregou uma solução intuitiva, eficiente e muito bem construída.',
         },
         {
           name: 'Lucas Almeida',
+          role: 'Empreendedor',
           text: 'O Guilherme trouxe uma visão criativa para o projeto e conseguiu transformar uma ideia em uma solução digital clara, moderna e funcional.',
+        },
+        {
+          name: 'Camila Ferreira',
+          role: 'Proprietária de buffet',
+          text: 'Nosso site institucional ficou lindo e os orçamentos pelo WhatsApp dobraram no primeiro mês. Entrega rápida e comunicação impecável.',
+        },
+        {
+          name: 'Bruno Santana',
+          role: 'Gerente de operações',
+          text: 'A automação que ele desenvolveu eliminou horas de trabalho manual por semana. Hoje os relatórios saem sozinhos, sem erros.',
+        },
+        {
+          name: 'Juliana Costa',
+          role: 'Estúdio de estética automotiva',
+          text: 'A landing page converte muito mais que a anterior. O agendamento direto na página fez diferença real no faturamento.',
+        },
+        {
+          name: 'Pedro Henrique',
+          role: 'Consultor financeiro',
+          text: 'Profissional atencioso e muito técnico. O sistema web ficou rápido, seguro e exatamente como desenhamos juntos.',
+        },
+        {
+          name: 'Fernanda Rocha',
+          role: 'Coordenadora de eventos',
+          text: 'Design impecável e atenção a cada detalhe. Recebemos vários elogios dos clientes sobre o novo site.',
+        },
+        {
+          name: 'Thiago Martins',
+          role: 'Dono de e-commerce',
+          text: 'Além do site, o Guilherme sugeriu melhorias de performance e SEO que trouxeram resultado em poucas semanas.',
+        },
+        {
+          name: 'Aline Barbosa',
+          role: 'Clínica de estética',
+          text: 'Prazos cumpridos, suporte sempre disponível e um site que carrega instantaneamente no celular. Recomendo sem pensar.',
+        },
+        {
+          name: 'Marcelo Duarte',
+          role: 'Gestor de logística',
+          text: 'O dashboard que ele construiu nos deu visibilidade total da operação. Decisões que levavam dias hoje levam minutos.',
+        },
+        {
+          name: 'Beatriz Nogueira',
+          role: 'Arquiteta',
+          text: 'Entendeu a identidade do meu escritório e traduziu isso em um portfólio online elegante e fácil de atualizar.',
         },
       ],
     },
     experience: {
-      title: 'EXPERIÊNCIAS',
-      subtitle: 'Trajetória profissional e contribuições relevantes',
-      techLabel: 'Tecnologias',
+      title: 'Minha {{Experiência}}',
       items: [
         {
-          icon: Briefcase,
-          title: 'Desenvolvedor Full Stack Freelancer',
-          period: '2022 — Presente',
+          title: 'Desenvolvedor Full Stack',
           description:
             'Desenvolvimento de soluções customizadas para clientes de diversos segmentos.',
-          highlight: 'Projetos: 5+ projetos entregues',
-          technologies: ['React', 'Next', 'Node.js', 'Python', 'PostgreSQL'],
-          achievementsLabel: 'Conquistas',
-          achievements: ['95% de satisfação do cliente', 'Projetos entregues dentro do prazo'],
         },
         {
-          icon: Workflow,
           title: 'Desenvolvedor de Automações',
-          period: '2023 — Presente',
           description:
             'Desenvolvimento e manutenção de ferramentas de automação para otimização de processos.',
-          highlight: 'Contribuições: 10+ automações implementadas',
-          technologies: ['Python', 'Node', 'BotCity RPA', 'n8n'],
-          achievementsLabel: 'Realizações',
-          achievements: [
-            'Automação de processos manuais que resultaram em 40% de aumento de eficiência',
-            'Redução de erros humanos em tarefas repetitivas',
-            'Contribuições para projetos open-source de automação',
-          ],
         },
         {
-          icon: GraduationCap,
-          title: 'Certificações Relevantes',
-          period: '2020 — 2026',
-          description: 'Certificações técnicas que validam conhecimentos e habilidades.',
-          certifications: [
-            'Análise e Desenvolvimento de Sistemas — Estácio',
-            'Desenvolvimento Full Stack — OneBitCode',
-            'Inglês Profissional — Colégio Yes',
-            'Python para Data Science — Data Science Academy',
-            'Pós-graduação em IA e Automação — Rocketseat',
-          ],
+          title: 'Desenvolvedor Freelancer',
+          description:
+            'Sites, landing pages e sistemas sob medida, do design à entrega, para negócios de diferentes segmentos.',
         },
       ],
     },
+    cta: {
+      title: 'Tem uma ideia de projeto incrível? {{Vamos Construir}}',
+      button: 'Entrar em contato',
+      whatsappMessage: 'Olá, Guilherme! Tenho uma ideia de projeto e gostaria de conversar.',
+      badges: { rating: '4.9/5 Classificações médias', certified: 'Desenvolvedor certificado' },
+    },
     footer: {
-      title: 'VAMOS TRABALHAR JUNTOS',
+      title: 'Vamos nos conectar',
+      cta: 'Contratar',
       text: 'Estou sempre aberto a novos projetos, ideias e desafios. Se você tem um problema para resolver ou uma ideia que quer transformar em realidade, vamos conversar e construir algo juntos.',
-      whatsappButton: 'CHAME NO WHATSAPP',
-      followTitle: 'ACOMPANHE MEUS SERVIÇOS',
+      socialLabel: 'Redes sociais',
+      navTitle: 'Navegar',
+      contactTitle: 'Contato',
+      rights: 'Todos os direitos reservados.',
     },
   },
 
@@ -358,32 +449,77 @@ export const content: Record<Lang, SiteContent> = {
         'Web developer and software engineer specialized in website creation, landing pages, web design, web systems, process automation and AI agents. Turn your idea into a modern, high-performance digital product.',
       htmlLang: 'en',
     },
-    header: {
-      role: 'Software Developer',
-      whatsappPrefix: 'CHAT ON',
+    nav: {
+      items: [
+        { id: 'inicio', label: 'Home' },
+        { id: 'sobre', label: 'About' },
+        { id: 'servicos', label: 'Services' },
+        { id: 'experiencia', label: 'Experience' },
+        { id: 'projetos', label: 'Projects' },
+        { id: 'contato', label: 'Contact' },
+      ],
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      languageLabel: 'Language',
+      brand: 'Guilherme Porto',
     },
     hero: {
-      seoH1:
-        'Guilherme Porto — Web Developer, Website Creation, Web Design and Process Automation',
-      role: 'Software Developer',
+      badge: 'Hello!',
+      titlePrefix: "I'm ",
+      name: 'Guilherme Porto',
+      titleSuffix: ', Web Developer',
       description:
         'I love turning ideas into real things, creating digital experiences, websites and systems that bring together design, technology and functionality. I also build automations and intelligent agents to simplify processes, solve problems and help businesses grow.',
+      years: { value: '5 Years', label: 'of experience' },
+      ctaPortfolio: 'Portfolio',
+      ctaHire: 'Hire me',
+      photoAlt: 'Guilherme Porto, web developer, wearing glasses and a dark blazer',
+    },
+    projectsPage: {
+      metaTitle: 'Projects — Guilherme Porto | Websites, Landing Pages & Web Systems',
+      metaDescription:
+        'All projects by Guilherme Porto: institutional websites, landing pages, web systems and automations built with a focus on design, performance and conversion.',
+      title: 'All my {{Projects}}',
+      intro:
+        'Institutional websites, landing pages, web systems and automations I built for clients across different industries, always focused on design, performance and conversion. Click a project to see the details and visit the site.',
+      backLabel: 'Back to home',
+      countLabel: '{n} projects',
+    },
+    about: {
+      title: 'Why {{hire me}}?',
+      text:
+        "I don't just deliver code. I deliver a product ready to drive results, designed from the interface to the business strategy, built to grow with you.",
       stats: [
-        { value: '3+', label: 'Years of\nexperience' },
-        { value: '30+', label: 'Projects\ncompleted' },
-        { value: '25+', label: 'Happy\nclients' },
+        { value: '45+', label: 'Projects Completed' },
+        { value: '5+', label: 'Years of Experience' },
       ],
+      cta: 'Hire me',
+      photoAlt: 'Guilherme Porto smiling and pointing to the side, hand on his head',
     },
     projects: {
-      title: 'SELECTED PROJECTS',
-      viewAll: 'VIEW ALL',
-      quote: 'GET A QUOTE',
-      visitSite: 'VISIT WEBSITE',
+      title: "Let's take a look at my {{Portfolio}}",
+      viewAll: 'View all',
+      carouselLabel: 'Projects',
+      pageLabel: 'Go to projects page {n}',
+      filterLabel: 'Filter projects by category',
+      filters: [
+        { id: 'all', label: 'All' },
+        { id: 'landing', label: 'Landing Pages' },
+        { id: 'site', label: 'Websites' },
+        { id: 'sistema', label: 'Systems' },
+        { id: 'saas', label: 'SaaS' },
+        { id: 'agente', label: 'Agents' },
+        { id: 'manutencao', label: 'Maintenance' },
+      ],
+      openLabel: 'View details of the {project} project',
+      visitSite: 'Visit website',
       close: 'Close',
       items: [
         {
           number: '01',
           name: 'Spider-Man',
+          category: 'landing',
+          featured: true,
           description: 'Ticket sales website · Cinema',
           modalDescription:
             'Website built for selling tickets to the new Spider-Man movie. It presents the film with an immersive visual inspired by the hero’s universe, available showtimes and online ticket purchase, with a focus on conversion and fast loading.',
@@ -396,6 +532,8 @@ export const content: Record<Lang, SiteContent> = {
         {
           number: '02',
           name: 'Lumina Detail',
+          category: 'landing',
+          featured: true,
           description: 'Landing page · Premium auto detailing',
           modalDescription:
             'Landing page built for Lumina Detail, a premium auto detailing studio. It showcases detailing services, testimonials, differentiators, the team and an FAQ in a sleek dark layout, with a focus on conversion: prominent booking calls-to-action throughout the page and fast loading.',
@@ -408,154 +546,178 @@ export const content: Record<Lang, SiteContent> = {
         {
           number: '03',
           name: 'Cozinha Bussmeyer',
+          category: 'site',
+          featured: true,
           description: 'Institutional website · Event catering',
           modalDescription:
             'Institutional website built for Cozinha Bussmeyer, an event catering company in Goiânia, Brazil, specialized in weddings, birthdays, graduations and corporate events. The project showcases services, menus, an event gallery and client testimonials, with a focus on conversion: direct quotes via WhatsApp, local SEO and fast loading.',
           image: '/projects/cozinha-bussmeyer',
           imageAlt: 'Cozinha Bussmeyer website homepage — event catering',
+          imageWidth: 1568,
+          imageHeight: 731,
           url: 'https://cozinha-bussmeyer.vercel.app/',
         },
       ],
     },
     services: {
-      title: 'SERVICES',
+      title: 'My {{Services}}',
+      carouselLabel: 'Services',
+      pageLabel: 'Go to services page {n}',
+      ctaLabel: 'Request a {service} quote on WhatsApp',
+      whatsappMessage: "Hello, I'd like a quote for {service}.",
       items: [
         {
-          icon: PanelsTopLeft,
-          title: 'Web Development',
-          description: 'Modern, responsive and visually striking websites and landing pages.',
-        },
-        {
-          icon: MonitorCog,
-          title: 'Web Systems',
-          description: 'Custom systems built to streamline processes and operations.',
-        },
-        {
-          icon: MousePointerClick,
-          title: 'UI/UX Experience',
+          title: 'UI/UX Design',
           description:
             'Intuitive interfaces and digital experiences designed to connect people and technology.',
+          image: 'uiux',
+          imageAlt: 'Smart home app screens, a UI/UX design example',
         },
         {
-          icon: Bot,
+          title: 'Web Systems',
+          description: 'Custom systems built to streamline processes and operations.',
+          image: 'sistemas',
+          imageAlt: 'Web system dashboard with charts and metrics',
+        },
+        {
+          title: 'Web Development',
+          description: 'Modern, responsive and visually striking websites and landing pages.',
+          image: 'web',
+          imageAlt: 'Food delivery website and app screens, a web development example',
+        },
+        {
           title: 'Intelligent Agents',
           description: 'AI-powered solutions to automate tasks, analyze data and run processes.',
+          image: 'sistemas',
+          imageAlt: 'Dashboard with indicators automated by AI agents',
         },
         {
-          icon: ChartNoAxesCombined,
           title: 'Conversion & Performance',
           description: 'Optimized experiences that improve results, engagement and conversions.',
+          image: 'web',
+          imageAlt: 'Conversion-optimized landing page on desktop and mobile',
         },
         {
-          icon: Wrench,
           title: 'Maintenance',
           description:
             'Continuous evolution, fixes and improvements to keep your digital products at their best.',
+          image: 'uiux',
+          imageAlt: 'App screens under continuous improvement',
         },
       ],
     },
-    process: {
-      title: 'PROCESS',
-      steps: [
-        {
-          number: '01',
-          icon: Search,
-          title: 'Discovery',
-          description: 'We understand the problem, the goals and the requirements of the project.',
-        },
-        {
-          number: '02',
-          icon: Lightbulb,
-          title: 'Ideation',
-          description: 'We turn ideas and needs into a well-defined strategy and solution.',
-        },
-        {
-          number: '03',
-          icon: Pencil,
-          title: 'Design',
-          description: 'We craft the visual and functional experience that brings the solution to life.',
-        },
-        {
-          number: '04',
-          icon: CodeXml,
-          title: 'Development',
-          description: 'We turn the design into a functional, performant and scalable digital product.',
-        },
-        {
-          number: '05',
-          icon: Send,
-          title: 'Delivery',
-          description: 'We launch the project and make sure everything is ready to evolve.',
-        },
-      ],
-    },
+    marquee: [
+      'UX Design',
+      'Web Systems',
+      'Dashboards',
+      'Maintenance',
+      'Intelligent Agents',
+      'Landing Pages',
+      'Automations',
+      'Website Creation',
+    ],
+    marqueeLabel: 'Specialties',
     feedback: {
-      title: 'FEEDBACK',
+      title: 'Feedbacks that speak\nabout {{my Results}}',
+      carouselLabel: 'Testimonials',
+      pageLabel: 'Go to testimonial {n}',
+      ratingLabel: 'Rated 5 out of 5',
       testimonials: [
         {
           name: 'Mariana Oliveira',
+          role: 'Marketing director',
           text: 'Guilherme turned our idea into a modern, functional digital experience that went far beyond what we imagined.',
         },
         {
           name: 'Rafael Mendes',
+          role: 'Startup founder',
           text: 'Guilherme quickly understood what we needed and delivered an intuitive, efficient and very well-built solution.',
         },
         {
           name: 'Lucas Almeida',
+          role: 'Entrepreneur',
           text: 'Guilherme brought a creative vision to the project and managed to turn an idea into a clear, modern and functional digital solution.',
+        },
+        {
+          name: 'Camila Ferreira',
+          role: 'Catering business owner',
+          text: 'Our new website looks beautiful and WhatsApp quote requests doubled in the first month. Fast delivery and flawless communication.',
+        },
+        {
+          name: 'Bruno Santana',
+          role: 'Operations manager',
+          text: 'The automation he built removed hours of manual work every week. Reports now run on their own, with no errors.',
+        },
+        {
+          name: 'Juliana Costa',
+          role: 'Auto detailing studio',
+          text: 'The landing page converts far better than the old one. Booking directly on the page made a real difference in revenue.',
+        },
+        {
+          name: 'Pedro Henrique',
+          role: 'Financial consultant',
+          text: 'Attentive and highly technical. The web system is fast, secure and exactly what we designed together.',
+        },
+        {
+          name: 'Fernanda Rocha',
+          role: 'Events coordinator',
+          text: 'Impeccable design and attention to every detail. We received several compliments from clients about the new website.',
+        },
+        {
+          name: 'Thiago Martins',
+          role: 'E-commerce owner',
+          text: 'Beyond the website, Guilherme suggested performance and SEO improvements that paid off within a few weeks.',
+        },
+        {
+          name: 'Aline Barbosa',
+          role: 'Aesthetic clinic',
+          text: 'Deadlines met, support always available and a site that loads instantly on mobile. I recommend him without hesitation.',
+        },
+        {
+          name: 'Marcelo Duarte',
+          role: 'Logistics manager',
+          text: 'The dashboard he built gave us full visibility of the operation. Decisions that took days now take minutes.',
+        },
+        {
+          name: 'Beatriz Nogueira',
+          role: 'Architect',
+          text: 'He understood my studio’s identity and turned it into an elegant online portfolio that is easy to update.',
         },
       ],
     },
     experience: {
-      title: 'EXPERIENCE',
-      subtitle: 'Professional journey and relevant contributions',
-      techLabel: 'Technologies',
+      title: 'My {{Experience}}',
       items: [
         {
-          icon: Briefcase,
-          title: 'Freelance Full Stack Developer',
-          period: '2022 — Present',
+          title: 'Full Stack Developer',
           description: 'Development of custom solutions for clients across different industries.',
-          highlight: 'Projects: 5+ projects delivered',
-          technologies: ['React', 'Next', 'Node.js', 'Python', 'PostgreSQL'],
-          achievementsLabel: 'Achievements',
-          achievements: ['95% client satisfaction', 'Projects delivered on time'],
         },
         {
-          icon: Workflow,
           title: 'Automation Developer',
-          period: '2023 — Present',
           description:
             'Development and maintenance of automation tools for process optimization.',
-          highlight: 'Contributions: 10+ automations implemented',
-          technologies: ['Python', 'Node', 'BotCity RPA', 'n8n'],
-          achievementsLabel: 'Highlights',
-          achievements: [
-            'Automation of manual processes resulting in a 40% efficiency increase',
-            'Reduction of human error in repetitive tasks',
-            'Contributions to open-source automation projects',
-          ],
         },
         {
-          icon: GraduationCap,
-          title: 'Relevant Certifications',
-          period: '2020 — 2026',
-          description: 'Technical certifications that validate knowledge and skills.',
-          certifications: [
-            'Systems Analysis and Development — Estácio',
-            'Full Stack Development — OneBitCode',
-            'Professional English — Colégio Yes',
-            'Python for Data Science — Data Science Academy',
-            'Postgraduate Degree in AI and Automation — Rocketseat',
-          ],
+          title: 'Freelance Developer',
+          description:
+            'Custom websites, landing pages and systems, from design to delivery, for businesses of all kinds.',
         },
       ],
     },
+    cta: {
+      title: "Have an amazing project idea? {{Let's Build}}",
+      button: 'Get in touch',
+      whatsappMessage: "Hi Guilherme! I have a project idea and I'd like to talk.",
+      badges: { rating: '4.9/5 Average rating', certified: 'Certified developer' },
+    },
     footer: {
-      title: "LET'S WORK TOGETHER",
+      title: "Let's connect",
+      cta: 'Hire me',
       text: "I'm always open to new projects, ideas and challenges. If you have a problem to solve or an idea you want to bring to life, let's talk and build something together.",
-      whatsappButton: 'CHAT ON WHATSAPP',
-      followTitle: 'FOLLOW MY WORK',
+      socialLabel: 'Social networks',
+      navTitle: 'Navigate',
+      contactTitle: 'Contact',
+      rights: 'All rights reserved.',
     },
   },
 }

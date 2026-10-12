@@ -7,26 +7,26 @@ interface ProjectImageProps {
   loading?: 'lazy' | 'eager'
 }
 
-// Espera variantes geradas por scripts/optimize-images.mjs a partir de
-// `project.image` (base sem extensão): -480.avif, .avif, -480.webp, .webp
+// Variantes geradas por scripts/optimize-images.mjs (scripts/images.config.mjs)
+// a partir de `project.image` (base sem extensão): -480, -640 e -1266 em AVIF/WebP.
+const widths = [480, 640, 1266]
+
 export function ProjectImage({ project, sizes, className, loading }: ProjectImageProps) {
   if (!project.image) return null
   const base = project.image
+  const srcSet = (format: 'avif' | 'webp') =>
+    widths.map((w) => `${base}-${w}.${format} ${w}w`).join(', ')
 
   return (
     <picture>
-      <source
-        type="image/avif"
-        srcSet={`${base}-480.avif 480w, ${base}.avif 960w`}
-        sizes={sizes}
-      />
+      <source type="image/avif" srcSet={srcSet('avif')} sizes={sizes} />
       <img
         src={`${base}.webp`}
-        srcSet={`${base}-480.webp 480w, ${base}.webp 960w`}
+        srcSet={srcSet('webp')}
         sizes={sizes}
         alt={project.imageAlt ?? project.name}
-        width={project.imageWidth ?? 960}
-        height={project.imageHeight ?? 448}
+        width={project.imageWidth ?? 1266}
+        height={project.imageHeight ?? 742}
         loading={loading}
         decoding="async"
         className={className}

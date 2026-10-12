@@ -1,30 +1,24 @@
-import { LanguageProvider } from './i18n/LanguageContext'
-import { Header } from './components/Header'
-import { Hero } from './components/Hero'
-import { Projects } from './components/Projects'
-import { Services } from './components/Services'
-import { Process } from './components/Process'
-import { Feedback } from './components/Feedback'
-import { Experience } from './components/Experience'
-import { Footer } from './components/Footer'
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
+import type { Lang } from './data/content'
+import type { Route } from './router'
+import { HomePage } from './pages/HomePage'
+import { ProjectsPage } from './pages/ProjectsPage'
 
-export default function App() {
+function Page() {
+  const { route } = useLanguage()
+  return route === 'projects' ? <ProjectsPage /> : <HomePage />
+}
+
+interface AppProps {
+  /** Idioma/rota usados pelo pré-render (servidor). */
+  initialLang?: Lang
+  initialRoute?: Route
+}
+
+export default function App({ initialLang, initialRoute }: AppProps) {
   return (
-    <LanguageProvider>
-      <Header />
-      <main>
-        <Hero />
-        <Projects />
-        <section className="border-t border-line">
-          <div className="mx-auto grid max-w-360 grid-cols-1 gap-12 px-6 py-12 md:px-12 md:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_minmax(0,0.9fr)] lg:gap-16">
-            <Services />
-            <Process />
-            <Feedback />
-          </div>
-        </section>
-        <Experience />
-      </main>
-      <Footer />
+    <LanguageProvider initialLang={initialLang} initialRoute={initialRoute}>
+      <Page />
     </LanguageProvider>
   )
 }

@@ -1,90 +1,63 @@
 import { useState } from 'react'
-import { ArrowRight } from 'lucide-react'
-import { links, type Project } from '../data/content'
+import { type Project } from '../data/content'
 import { useLanguage } from '../i18n/LanguageContext'
-import { ProjectImage } from './ProjectImage'
+import { Button } from './Button'
+import { Carousel } from './Carousel'
+import { ProjectCard, ProjectFilters, availableFilters } from './ProjectCard'
 import { ProjectModal } from './ProjectModal'
 import { Reveal } from './Reveal'
+import { SectionTitle } from './SectionTitle'
 
+const cardSizes = '(min-width: 1024px) 633px, (min-width: 640px) 60vw, 90vw'
+
+/**
+ * "Vamos dar uma olhada no meu Portfólio" (Figma node 61:658): cabeçalho com
+ * "Ver tudo" (→ página /projetos), carrossel 2 por vista com os projetos em
+ * destaque, dots e pills de filtro por categoria.
+ */
 export function Projects() {
-  const { t } = useLanguage()
+  const { t, linkTo } = useLanguage()
+  const { projects } = t
+  const [filter, setFilter] = useState('all')
   const [selected, setSelected] = useState<Project | null>(null)
 
+  const featured = projects.items.filter((p) => p.featured)
+  const visible = filter === 'all' ? featured : featured.filter((p) => p.category === filter)
+  const filters = availableFilters(projects.filters, featured)
+
   return (
-    <section id="projetos" className="border-t border-line bg-surface">
-      <div className="mx-auto max-w-360 px-6 py-12 md:px-12 md:py-16">
-        <Reveal className="flex items-center justify-between gap-4 sm:gap-6">
-          <h2 className="shrink-0 text-xl font-extrabold tracking-wide sm:text-2xl md:text-3xl">
-            {t.projects.title}
-          </h2>
-          <div className="hidden h-px flex-1 bg-line sm:block" />
-          <a
-            href="#projetos"
-            className="flex shrink-0 items-center gap-3 text-xs font-bold tracking-widest text-muted transition-colors hover:text-white"
-          >
-            {t.projects.viewAll}
-            <ArrowRight className="size-5" strokeWidth={1.5} />
-          </a>
+    <section id="projetos" className="cv-auto py-16 md:py-[97px]" aria-labelledby="projetos-titulo">
+      <div className="container-site">
+        <Reveal className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <SectionTitle as="h2" text={projects.title} className="max-w-[961px]" />
+          <span id="projetos-titulo" className="sr-only">
+            {projects.title.replace(/[{}]/g, '')}
+          </span>
+          <Button {...linkTo('projects')} className="shrink-0 self-start md:self-auto">
+            {projects.viewAll}
+          </Button>
         </Reveal>
 
-        <div className="mt-8 grid grid-cols-1 gap-10 md:mt-12 md:grid-cols-3 md:gap-8">
-          {t.projects.items.map((project, index) => {
-            const card = (
-              <>
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-sm border border-line bg-card transition-[border-color,box-shadow] duration-300 group-hover:border-primary/40 group-hover:shadow-[0_0_45px_rgba(47,107,255,0.35)]">
-                  <ProjectImage
-                    project={project}
-                    sizes="(min-width: 768px) 30vw, 90vw"
-                    loading="lazy"
-                    className="size-full rounded-sm object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-5 flex items-center gap-4">
-                  <span className="text-3xl font-extrabold text-primary-bright lg:text-4xl">
-                    {project.number}
-                  </span>
-                  <div className="flex-1">
-                    <h3 className="text-sm font-bold tracking-wider">{project.name.toUpperCase()}</h3>
-                    <p className="text-xs uppercase tracking-wider text-muted">{project.description}</p>
-                  </div>
-                  <ArrowRight
-                    className="size-6 text-muted transition-transform group-hover:translate-x-1"
-                    strokeWidth={1.5}
-                  />
-                </div>
-              </>
-            )
+        <Carousel
+          key={filter}
+          className="mt-10 md:mt-12"
+          label={projects.carouselLabel}
+          pageLabel={projects.pageLabel}
+          dotsTone="dark"
+          trackClassName="gap-4 sm:gap-6"
+          slideClassName="w-[90%] sm:w-[calc((100%-24px)/2)]"
+        >
+          {visible.map((project) => (
+            <ProjectCard key={project.name} project={project} onOpen={setSelected} sizes={cardSizes} />
+          ))}
+        </Carousel>
 
-            return (
-              <Reveal as="article" key={project.number} delay={index * 120} className="group">
-                {project.image ? (
-                  <button
-                    type="button"
-                    onClick={() => setSelected(project)}
-                    aria-haspopup="dialog"
-                    className="w-full cursor-pointer text-left"
-                  >
-                    {card}
-                  </button>
-                ) : (
-                  card
-                )}
-              </Reveal>
-            )
-          })}
-        </div>
-
-        <Reveal className="mt-10 flex justify-center md:mt-14">
-          <a
-            href={links.whatsapp}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-3 text-lg font-extrabold tracking-wide transition-opacity hover:opacity-80 sm:gap-4 sm:text-xl md:text-2xl"
-          >
-            {t.projects.quote}
-            <ArrowRight className="size-7" strokeWidth={2} />
-          </a>
-        </Reveal>
+        <ProjectFilters
+          filters={filters}
+          value={filter}
+          onChange={setFilter}
+          className="mt-10 md:mt-12 md:justify-center"
+        />
       </div>
 
       <ProjectModal project={selected} onClose={() => setSelected(null)} />
