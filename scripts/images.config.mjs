@@ -35,6 +35,7 @@ export const images = [
   { source: 'assets-src/services/sistemas.jpg', out: 'public/services/sistemas', widths: [415, 830] },
   { source: 'assets-src/services/web.jpg', out: 'public/services/web', widths: [415, 830] },
   // Capas dos projetos — 633×371 no layout (2× = 1266).
+  { source: 'assets-src/projects/clima-lar.png', out: 'public/projects/clima-lar', widths: [480, 640, 1266] },
   { source: 'assets-src/projects/spider-man.png', out: 'public/projects/spider-man', widths: [480, 640, 1266] },
   { source: 'assets-src/projects/lumina-detail.png', out: 'public/projects/lumina-detail', widths: [480, 640, 1266] },
   {

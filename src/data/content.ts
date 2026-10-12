@@ -235,9 +235,23 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           number: '01',
+          name: 'Clima Lar',
+          category: 'site',
+          featured: true,
+          description: 'Site institucional · Ar-condicionado e climatização',
+          modalDescription:
+            'Site institucional desenvolvido para a Clima Lar, empresa de instalação, manutenção e higienização de ar-condicionado. Apresenta os serviços residenciais e comerciais, diferenciais, área de atendimento e depoimentos, com foco em conversão: orçamento direto pelo WhatsApp, SEO local e carregamento rápido no celular.',
+          image: '/projects/clima-lar',
+          imageAlt: 'Página inicial do site Clima Lar — ar-condicionado e climatização',
+          imageWidth: 1898,
+          imageHeight: 940,
+          url: 'https://clima-lar.vercel.app/',
+        },
+        {
+          number: '02',
           name: 'Spider-Man',
           category: 'landing',
-          featured: true,
+          featured: false,
           description: 'Site de venda de ingressos · Cinema',
           modalDescription:
             'Site desenvolvido para a venda de ingressos do novo filme do Homem-Aranha. Apresenta o filme com visual imersivo inspirado no universo do herói, sessões disponíveis e compra de ingressos online, com foco em conversão e carregamento rápido.',
@@ -248,7 +262,7 @@ export const content: Record<Lang, SiteContent> = {
           url: 'https://spider-man-a-new-day.vercel.app/',
         },
         {
-          number: '02',
+          number: '03',
           name: 'Lumina Detail',
           category: 'landing',
           featured: true,
@@ -262,7 +276,7 @@ export const content: Record<Lang, SiteContent> = {
           url: 'https://estetica-automotiva-tawny.vercel.app/',
         },
         {
-          number: '03',
+          number: '04',
           name: 'Cozinha Bussmeyer',
           category: 'site',
           featured: true,
@@ -517,9 +531,23 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           number: '01',
+          name: 'Clima Lar',
+          category: 'site',
+          featured: true,
+          description: 'Institutional website · Air conditioning & HVAC',
+          modalDescription:
+            'Institutional website built for Clima Lar, an air-conditioning installation, maintenance and cleaning company. It presents residential and commercial services, differentiators, service area and testimonials, with a focus on conversion: direct quotes via WhatsApp, local SEO and fast loading on mobile.',
+          image: '/projects/clima-lar',
+          imageAlt: 'Clima Lar website homepage — air conditioning and HVAC services',
+          imageWidth: 1898,
+          imageHeight: 940,
+          url: 'https://clima-lar.vercel.app/',
+        },
+        {
+          number: '02',
           name: 'Spider-Man',
           category: 'landing',
-          featured: true,
+          featured: false,
           description: 'Ticket sales website · Cinema',
           modalDescription:
             'Website built for selling tickets to the new Spider-Man movie. It presents the film with an immersive visual inspired by the hero’s universe, available showtimes and online ticket purchase, with a focus on conversion and fast loading.',
@@ -530,7 +558,7 @@ export const content: Record<Lang, SiteContent> = {
           url: 'https://spider-man-a-new-day.vercel.app/',
         },
         {
-          number: '02',
+          number: '03',
           name: 'Lumina Detail',
           category: 'landing',
           featured: true,
@@ -544,7 +572,7 @@ export const content: Record<Lang, SiteContent> = {
           url: 'https://estetica-automotiva-tawny.vercel.app/',
         },
         {
-          number: '03',
+          number: '04',
           name: 'Cozinha Bussmeyer',
           category: 'site',
           featured: true,

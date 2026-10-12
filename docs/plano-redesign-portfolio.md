@@ -169,6 +169,8 @@ Este documento vive em `docs/plano-redesign-portfolio.md` e é a fonte da checkl
 
 > **Resultado da Etapa 15 (12/10/2026):** o pedido mudou durante a execução: em vez de arrastar manualmente, a seção de Feedbacks virou uma **esteira automática** (mesma técnica do marquee): `Feedback.tsx` renderiza os 12 depoimentos duas vezes (cópia com `aria-hidden`) dentro de `.feedback-track`, animação CSS `marquee` (translateX −50%) com duração `12,5 s × nº de cards` (150 s por volta), sentido direita→esquerda, pausa no hover/foco e desligada em `prefers-reduced-motion` (vira lista rolável). Sem JS, sem dependência de eventos de scroll. `LoopCarousel.tsx` (versão arrastável) foi descartado. 12 depoimentos em PT/EN com `name`, `role` e `text` no `content.ts` (nomes ilustrativos). Verificado no Chrome: animação `running`, 24 cards, 12 expostos a leitores de tela; build e pré-render ok.
 
+> **Resultado da Etapa 16 (12/10/2026):** projeto **Clima Lar** (ar-condicionado) adicionado como destaque 01 na home e em `/projetos`; capa movida para `assets-src/projects/clima-lar.png` e otimizada em AVIF/WebP (480/640/1266; 13–70 KB); conteúdo PT/EN com descrição, modal e link https://clima-lar.vercel.app/. Spider-Man passou a `featured: false` (só em `/projetos`); demais renumerados (02–04). JSON-LD: home lista Clima Lar, Lumina Detail e Cozinha Bussmeyer; `/projetos` lista os 4. Verificado no Chrome (home, modal, página com "4 projetos").
+
 ### Etapa 13 — Entrega (meio dia)
 - [x] Atualizar `README.md` (stack, seções, scripts, SEO) e remover `screenshot.png` antigo por um novo.
 - [ ] Commit/push e PR (somente quando solicitado; descrição em português no padrão BHub).
