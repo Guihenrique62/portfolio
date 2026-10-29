@@ -171,6 +171,8 @@ Este documento vive em `docs/plano-redesign-portfolio.md` e é a fonte da checkl
 
 > **Resultado da Etapa 16 (12/10/2026):** projeto **Clima Lar** (ar-condicionado) adicionado como destaque 01 na home e em `/projetos`; capa movida para `assets-src/projects/clima-lar.png` e otimizada em AVIF/WebP (480/640/1266; 13–70 KB); conteúdo PT/EN com descrição, modal e link https://clima-lar.vercel.app/. Spider-Man passou a `featured: false` (só em `/projetos`); demais renumerados (02–04). JSON-LD: home lista Clima Lar, Lumina Detail e Cozinha Bussmeyer; `/projetos` lista os 4. Verificado no Chrome (home, modal, página com "4 projetos").
 
+> **Resultado da Etapa 17 (29/10/2026):** projeto **Marcena** (SaaS de gestão para marcenarias: estoque, compras, saídas e orçamentos) adicionado como 05 apenas em `/projetos` (`featured: false`, categoria `saas`); capa movida para `assets-src/projects/marcena.png` e otimizada em AVIF/WebP (480/640/1266; 6–33 KB); conteúdo PT/EN com descrição, modal e link https://marcena.vercel.app/. Home inalterada; JSON-LD de `/projetos` passa a listar os 5.
+
 ### Etapa 13 — Entrega (meio dia)
 - [x] Atualizar `README.md` (stack, seções, scripts, SEO) e remover `screenshot.png` antigo por um novo.
 - [ ] Commit/push e PR (somente quando solicitado; descrição em português no padrão BHub).
