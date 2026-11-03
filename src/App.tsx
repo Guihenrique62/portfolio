@@ -3,6 +3,7 @@ import type { Lang } from './data/content'
 import type { Route } from './router'
 import { HomePage } from './pages/HomePage'
 import { ProjectsPage } from './pages/ProjectsPage'
+import { Analytics } from '@vercel/analytics/react'
 
 function Page() {
   const { route } = useLanguage()
@@ -19,6 +20,7 @@ export default function App({ initialLang, initialRoute }: AppProps) {
   return (
     <LanguageProvider initialLang={initialLang} initialRoute={initialRoute}>
       <Page />
+      <Analytics />
     </LanguageProvider>
   )
 }
