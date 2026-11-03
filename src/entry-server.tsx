@@ -4,7 +4,7 @@ import type { Lang } from './data/content'
 import type { Route } from './router'
 
 export { getSeo } from './seo/meta'
-export { pathFor, routeSlugs } from './router'
+export { pathFor, routeSlugs, routes } from './router'
 export type { Lang, Route }
 
 /**

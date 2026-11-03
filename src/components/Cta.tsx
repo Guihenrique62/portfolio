@@ -13,7 +13,7 @@ import whatsappIcon from '../assets/icons/whatsapp.svg'
  * mensagem pronta e selos abaixo.
  */
 export function Cta() {
-  const { t } = useLanguage()
+  const { t, linkTo } = useLanguage()
   const { cta } = t
   const href = `${links.whatsapp}?text=${encodeURIComponent(cta.whatsappMessage)}`
 
@@ -47,6 +47,14 @@ export function Cta() {
               <span>{cta.badges.certified}</span>
             </li>
           </ul>
+
+          <p className="max-w-[560px] text-center text-sm text-muted-strong">
+            {cta.privacyNotice}{' '}
+            <a {...linkTo('privacy')} className="font-medium text-primary underline underline-offset-4 hover:text-primary-deep">
+              {t.footer.privacy}
+            </a>
+            .
+          </p>
         </Reveal>
       </div>
     </section>

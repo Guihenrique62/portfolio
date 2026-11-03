@@ -147,6 +147,8 @@ export interface SiteContent {
     /** Mensagem pré-preenchida no WhatsApp. */
     whatsappMessage: string
     badges: { rating: string; certified: string }
+    /** Aviso de privacidade sob o botão (antes do link para a política). */
+    privacyNotice: string
   }
   footer: {
     title: string
@@ -156,6 +158,18 @@ export interface SiteContent {
     navTitle: string
     contactTitle: string
     rights: string
+    legalLabel: string
+    privacy: string
+    terms: string
+    /** Identificação legal (pessoa física / autônomo + cidade). */
+    identity: string
+  }
+  a11y: {
+    skipToContent: string
+  }
+  legalPage: {
+    backLabel: string
+    contentsLabel: string
   }
 }
 
@@ -472,6 +486,7 @@ export const content: Record<Lang, SiteContent> = {
       button: 'Entrar em contato',
       whatsappMessage: 'Olá, Guilherme! Tenho uma ideia de projeto e gostaria de conversar.',
       badges: { rating: '4.9/5 Classificações médias', certified: 'Desenvolvedor certificado' },
+      privacyNotice: 'A conversa acontece no WhatsApp. Seus dados são usados só para responder você. Veja a',
     },
     footer: {
       title: 'Vamos nos conectar',
@@ -481,6 +496,17 @@ export const content: Record<Lang, SiteContent> = {
       navTitle: 'Navegar',
       contactTitle: 'Contato',
       rights: 'Todos os direitos reservados.',
+      legalLabel: 'Legal',
+      privacy: 'Política de Privacidade',
+      terms: 'Termos de Uso',
+      identity: 'Guilherme Henrique Porto · Profissional autônomo · Goiânia – GO',
+    },
+    a11y: {
+      skipToContent: 'Pular para o conteúdo principal',
+    },
+    legalPage: {
+      backLabel: 'Voltar para a home',
+      contentsLabel: 'Nesta página',
     },
   },
 
@@ -793,6 +819,7 @@ export const content: Record<Lang, SiteContent> = {
       button: 'Get in touch',
       whatsappMessage: "Hi Guilherme! I have a project idea and I'd like to talk.",
       badges: { rating: '4.9/5 Average rating', certified: 'Certified developer' },
+      privacyNotice: 'The conversation happens on WhatsApp. Your data is used only to reply to you. See the',
     },
     footer: {
       title: "Let's connect",
@@ -802,6 +829,17 @@ export const content: Record<Lang, SiteContent> = {
       navTitle: 'Navigate',
       contactTitle: 'Contact',
       rights: 'All rights reserved.',
+      legalLabel: 'Legal',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Use',
+      identity: 'Guilherme Henrique Porto · Self-employed professional · Goiânia – GO, Brazil',
+    },
+    a11y: {
+      skipToContent: 'Skip to main content',
+    },
+    legalPage: {
+      backLabel: 'Back to home',
+      contentsLabel: 'Contents',
     },
   },
 }

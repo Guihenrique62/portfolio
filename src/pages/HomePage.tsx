@@ -1,4 +1,4 @@
-import { Header } from '../components/Header'
+import { Header, MAIN_ID } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { Services } from '../components/Services'
 import { Experience } from '../components/Experience'
@@ -18,7 +18,7 @@ export function HomePage() {
   return (
     <>
       <Header />
-      <main>
+      <main id={MAIN_ID} tabIndex={-1}>
         <Hero />
         <Services />
         <Experience />

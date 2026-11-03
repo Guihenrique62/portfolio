@@ -16,8 +16,9 @@ export function Header() {
   const { lang, route, setLang, t } = useLanguage()
   const items = t.nav.items
   const [active, setActive] = useState(items[0].id)
-  // Fora da home, o item ativo é fixo ("Projetos" na página de projetos).
-  const current = route === 'home' ? active : 'projetos'
+  // Fora da home, o item ativo é fixo ("Projetos" na página de projetos;
+  // nenhum nas páginas legais).
+  const current = route === 'home' ? active : route === 'projects' ? 'projetos' : ''
   const [open, setOpen] = useState(false)
   const menuId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -115,6 +116,14 @@ export function Header() {
   )
 
   return (
+    <>
+    {/* Primeiro item focável da página: leva o teclado direto ao <main>. */}
+    <a
+      href={`#${MAIN_ID}`}
+      className="sr-only rounded-pill bg-primary px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60]"
+    >
+      {t.a11y.skipToContent}
+    </a>
     <header className="fixed inset-x-0 top-4 z-50 md:top-8">
       <div className="container-site">
         <nav
@@ -202,5 +211,9 @@ export function Header() {
         </nav>
       </div>
     </header>
+    </>
   )
 }
+
+/** id do <main> de cada página, alvo do link "pular para o conteúdo". */
+export const MAIN_ID = 'conteudo'

@@ -15,7 +15,23 @@
       "destination": "/en/projects/index.html"
     },
     {
-      "source": "/((?!en$|en/|projetos$|projetos/).*)",
+      "source": "/privacidade",
+      "destination": "/privacidade/index.html"
+    },
+    {
+      "source": "/termos",
+      "destination": "/termos/index.html"
+    },
+    {
+      "source": "/en/privacy",
+      "destination": "/en/privacy/index.html"
+    },
+    {
+      "source": "/en/terms",
+      "destination": "/en/terms/index.html"
+    },
+    {
+      "source": "/((?!en$|en/|projetos$|projetos/|privacidade$|privacidade/|termos$|termos/).*)",
       "destination": "/index.html"
     }
   ],

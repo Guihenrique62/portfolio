@@ -69,7 +69,7 @@
 
   /* Destaque */
   --color-primary: #2563eb;
-  --color-primary-bright: #3b76f6; /* hover do azul */
+  --color-primary-bright: #316cf0; /* hover do azul (texto branco 4.6:1, WCAG AA) */
   --color-primary-deep: #1d4ed8; /* active do azul */
   --color-primary-soft: #5b8df9; /* azul em fundo escuro (contraste 4.7:1 no footer) */
   --color-accent: #fd853a; /* borda do botão-seta dos projetos */
@@ -78,8 +78,10 @@
   /* Texto */
   --color-slate: #344054; /* H2/H3 em fundo claro */
   --color-slate-deep: #1d2939; /* números */
-  --color-muted: #98a2b3; /* parágrafos secundários */
-  --color-muted-strong: #667085; /* labels */
+  /* Contraste WCAG AA (≥ 4.5:1) em branco e em --color-surface. O #98a2b3 do
+     protótipo dava 2.6:1 e reprovava na auditoria de acessibilidade. */
+  --color-muted: #667085; /* parágrafos secundários (4.97:1 branco, 4.51:1 surface) */
+  --color-muted-strong: #475467; /* labels (7.7:1 branco) */
   --color-snow: #fcfcfd; /* texto em fundo escuro */
   --color-snow-soft: #f9fafb;
   --color-cream: #fffaf5; /* título dos cards de projeto */
@@ -379,4 +381,10 @@ html.js .animate-fade-up {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* O <main> recebe foco pelo link "pular para o conteúdo" só para mover o
+   ponto de partida do Tab; não precisa de anel de foco. */
+main[tabindex="-1"]:focus {
+  outline: none;
 }

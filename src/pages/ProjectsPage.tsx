@@ -4,7 +4,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { Button } from '../components/Button'
 import { Cta } from '../components/Cta'
 import { Footer } from '../components/Footer'
-import { Header } from '../components/Header'
+import { Header, MAIN_ID } from '../components/Header'
 import { ProjectCard, ProjectFilters, availableFilters } from '../components/ProjectCard'
 import { ProjectModal } from '../components/ProjectModal'
 import { Reveal } from '../components/Reveal'
@@ -29,7 +29,7 @@ export function ProjectsPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id={MAIN_ID} tabIndex={-1}>
         <section className="pb-16 pt-28 md:pb-[97px] md:pt-[150px]" aria-labelledby="projetos-page-titulo">
           <div className="container-site">
             <Reveal className="flex flex-col gap-5 md:max-w-[860px]">

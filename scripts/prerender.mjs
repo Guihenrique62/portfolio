@@ -1,7 +1,7 @@
 // Pré-render nos dois idiomas: gera um bundle SSR do App, renderiza o HTML de
 // cada idioma e injeta no dist/index.html já buildado, ajustando <html lang>,
 // title, description, canonical, Open Graph, Twitter e JSON-LD por idioma.
-// Saída: dist/index.html (pt-BR) e dist/en/index.html (en). Também gera o
+// Saída: um index.html por rota × idioma (/, /en, /projetos, /privacidade...). Também gera o
 // sitemap.xml com lastmod. Não usa navegador headless.
 import { build } from 'vite'
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -27,7 +27,7 @@ await build({
   },
 })
 
-const { render, getSeo, pathFor } = await import(
+const { render, getSeo, pathFor, routes } = await import(
   pathToFileURL(resolve(ssrOutDir, 'entry-server.mjs')).href
 )
 
@@ -90,7 +90,7 @@ function buildHtml(lang, route) {
 
 // 2. Gera um HTML estático por página × idioma.
 const pages = []
-for (const route of ['home', 'projects']) {
+for (const route of routes) {
   for (const lang of ['pt', 'en']) {
     const path = pathFor(lang, route) // "/", "/en", "/projetos", "/en/projects"
     const dir = resolve(root, 'dist', path.replace(/^\//, ''))

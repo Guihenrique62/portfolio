@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import { content, type Lang, type SiteContent } from '../data/content'
-import { parsePath, pathFor, type Route } from '../router'
+import { isRoute, parsePath, pathFor, type Route } from '../router'
 import { applySeo, getSeo } from '../seo/meta'
 
 const STORAGE_KEY = 'lang'
@@ -48,7 +48,7 @@ function initialFromDocument(): { lang: Lang; route: Route } {
   const html = document.documentElement
   const lang: Lang = html.lang.toLowerCase().startsWith('en') ? 'en' : 'pt'
   const dataRoute = html.dataset.route
-  if (dataRoute === 'home' || dataRoute === 'projects') return { lang, route: dataRoute }
+  if (isRoute(dataRoute)) return { lang, route: dataRoute }
   // Dev (sem pré-render): deriva da URL.
   return { lang, route: parsePath(window.location.pathname).route }
 }

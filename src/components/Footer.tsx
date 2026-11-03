@@ -13,7 +13,7 @@ import whatsappIcon from '../assets/icons/whatsapp.svg'
  * (texto + redes | Navegar | Contato), linha e rodapé com direitos.
  */
 export function Footer() {
-  const { t, lang, route } = useLanguage()
+  const { t, lang, route, linkTo } = useLanguage()
   const { footer, nav } = t
 
   const social = [
@@ -75,7 +75,7 @@ export function Footer() {
             <ul className="flex flex-col gap-5 text-base">
               {nav.items.map((item) => (
                 <li key={item.id}>
-                  <a href={homeHash(lang, item.id, route)} className="transition-colors hover:text-primary">
+                  <a href={homeHash(lang, item.id, route)} className="transition-colors hover:text-primary-soft hover:underline">
                     {item.label}
                   </a>
                 </li>
@@ -90,7 +90,7 @@ export function Footer() {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="transition-colors hover:text-primary"
+                    className="transition-colors hover:text-primary-soft hover:underline"
                     {...(item.href.startsWith('https') ? { target: '_blank', rel: 'noreferrer' } : {})}
                   >
                     {item.label}
@@ -103,9 +103,28 @@ export function Footer() {
 
         <hr className="border-0 border-t-2 border-[#475467]" />
 
-        <p className="flex min-h-[30px] items-center text-sm text-snow/70">
-          © {new Date().getFullYear()} Guilherme Porto. {footer.rights}
-        </p>
+        <div className="flex flex-col gap-3 text-sm text-snow/70 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-1">
+            <p>
+              © {new Date().getFullYear()} Guilherme Porto. {footer.rights}
+            </p>
+            <p>{footer.identity}</p>
+          </div>
+          <nav aria-label={footer.legalLabel}>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+              <li>
+                <a {...linkTo('privacy')} className="underline-offset-4 transition-colors hover:text-snow hover:underline">
+                  {footer.privacy}
+                </a>
+              </li>
+              <li>
+                <a {...linkTo('terms')} className="underline-offset-4 transition-colors hover:text-snow hover:underline">
+                  {footer.terms}
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </footer>
   )

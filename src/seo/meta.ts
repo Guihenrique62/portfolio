@@ -1,4 +1,5 @@
 import { content, links, siteUrl, type Lang } from '../data/content'
+import { legal, owner } from '../data/legal'
 import { pathFor, type Route } from '../router'
 
 /**
@@ -88,8 +89,19 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
     breadcrumb: `${url}#breadcrumb`,
   }
   const isProjects = route === 'projects'
-  const pageTitle = isProjects ? t.projectsPage.metaTitle : t.meta.title
-  const pageDescription = isProjects ? t.projectsPage.metaDescription : t.meta.description
+  const legalDoc = route === 'privacy' || route === 'terms' ? legal[lang][route] : null
+  const pageTitle = legalDoc?.metaTitle ?? (isProjects ? t.projectsPage.metaTitle : t.meta.title)
+  const pageDescription =
+    legalDoc?.metaDescription ?? (isProjects ? t.projectsPage.metaDescription : t.meta.description)
+  // Breadcrumb em toda página que não é a home.
+  const crumbName = (legalDoc?.title ?? t.projectsPage.title).replace(/[{}]/g, '')
+  // Endereço público: só cidade/UF (pessoa física, sem endereço residencial).
+  const address = {
+    '@type': 'PostalAddress',
+    addressLocality: owner.city,
+    addressRegion: owner.region,
+    addressCountry: owner.country,
+  }
   // Home lista só os destaques; a página de projetos lista todos.
   const listedProjects = isProjects ? t.projects.items : t.projects.items.filter((p) => p.featured)
   const photo = absolute('/hero/foto-perfil-1170.webp')
@@ -117,7 +129,8 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
         about: { '@id': ids.person },
         primaryImageOfPage: photo,
         inLanguage: t.meta.htmlLang,
-        ...(isProjects ? { mainEntity: { '@id': ids.projects }, breadcrumb: { '@id': ids.breadcrumb } } : {}),
+        ...(isProjects ? { mainEntity: { '@id': ids.projects } } : {}),
+        ...(route !== 'home' ? { breadcrumb: { '@id': ids.breadcrumb } } : {}),
       },
       {
         '@type': 'Person',
@@ -128,6 +141,7 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
         mainEntityOfPage: { '@id': ids.webpage },
         image: photo,
         jobTitle: jobTitle[lang],
+        address,
         email: `mailto:${links.email}`,
         telephone: links.phoneHref,
         worksFor: { '@id': ids.service },
@@ -143,6 +157,7 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
         founder: { '@id': ids.person },
         description: t.meta.description,
         areaServed: lang === 'pt' ? 'Brasil' : 'Brazil',
+        address,
         telephone: links.phoneHref,
         email: links.email,
         hasOfferCatalog: {
@@ -159,6 +174,9 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
           })),
         },
       },
+      ...(legalDoc
+        ? []
+        : [
       {
         '@type': 'ItemList',
         '@id': ids.projects,
@@ -177,7 +195,8 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
           },
         })),
       },
-      ...(isProjects
+          ]),
+      ...(route !== 'home'
         ? [
             {
               '@type': 'BreadcrumbList',
@@ -187,7 +206,7 @@ export function getSeo(lang: Lang, route: Route = 'home'): Seo {
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: t.projectsPage.title.replace(/[{}]/g, ''),
+                  name: crumbName,
                   item: url,
                 },
               ],
