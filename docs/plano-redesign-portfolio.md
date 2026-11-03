@@ -173,6 +173,8 @@ Este documento vive em `docs/plano-redesign-portfolio.md` e é a fonte da checkl
 
 > **Resultado da Etapa 17 (29/10/2026):** projeto **Marcena** (SaaS de gestão para marcenarias: estoque, compras, saídas e orçamentos) adicionado como 05 apenas em `/projetos` (`featured: false`, categoria `saas`); capa movida para `assets-src/projects/marcena.png` e otimizada em AVIF/WebP (480/640/1266; 6–33 KB); conteúdo PT/EN com descrição, modal e link https://marcena.vercel.app/. Home inalterada; JSON-LD de `/projetos` passa a listar os 5.
 
+> **Resultado da Etapa 18 (03/11/2026):** projeto conceito **Webmotors Premium** (plataforma de venda de carros novos e seminovos, sem vínculo com a Webmotors — a descrição deixa isso explícito) adicionado como destaque 03 na home e em `/projetos` (categoria `site`), no lugar do Lumina Detail, que passou a 06 com `featured: false` (só em `/projetos`); capa movida para `assets-src/projects/webmotors.png` e otimizada em AVIF/WebP (480/640/1266); conteúdo PT/EN com descrição, modal e link https://webmotors-premium.vercel.app/. JSON-LD: home lista Clima Lar, Webmotors Premium e Cozinha Bussmeyer; `/projetos` lista os 6.
+
 ### Etapa 13 — Entrega (meio dia)
 - [x] Atualizar `README.md` (stack, seções, scripts, SEO) e remover `screenshot.png` antigo por um novo.
 - [ ] Commit/push e PR (somente quando solicitado; descrição em português no padrão BHub).
